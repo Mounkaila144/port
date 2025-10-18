@@ -1,3 +1,28 @@
+<VirtualHost *:80>
+    ServerName portfolio.nigerdev.com
+    DocumentRoot /var/www/port/out
+
+    <Directory /var/www/port/out>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    # Activer mod_headers pour le cache
+    <IfModule mod_headers.c>
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set X-XSS-Protection "1; mode=block"
+        Header always set X-Frame-Options "SAMEORIGIN"
+    </IfModule>
+
+    # Redirection HTTP vers HTTPS
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R=301,L]
+
+    ErrorLog ${APACHE_LOG_DIR}/portfolio.nigerdev.com_error.log
+    CustomLog ${APACHE_LOG_DIR}/portfolio.nigerdev.com_access.log combined
+</VirtualHost>
 <VirtualHost *:443>
     ServerName portfolio.nigerdev.com
 
