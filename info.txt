@@ -1,156 +1,27 @@
-Tu es un assistant de rédaction UI/UX. Ta mission : réécrire proprement les informations de mes projets pour les afficher en cartes de portfolio claires, modernes et convaincantes, en français.
+<VirtualHost *:443>
+    ServerName portfolio.nigerdev.com
 
-🎯 Objectif
+    DocumentRoot /var/www/port/out
 
-Pour chaque projet ci-dessous, produis un objet avec :
+    <Directory /var/www/port/out>
+        Options -Indexes +FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
 
-title : un titre court et professionnel.
+    # Activer mod_headers pour le cache
+    <IfModule mod_headers.c>
+        Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        Header always set X-Content-Type-Options "nosniff"
+        Header always set X-XSS-Protection "1; mode=block"
+        Header always set X-Frame-Options "SAMEORIGIN"
+    </IfModule>
 
-subtitle : une micro-accroche qui précise la nature du projet (produit, plateforme, appli, etc.).
+    SSLEngine On
+    SSLCertificateFile /etc/letsencrypt/live/portfolio.nigerdev.com/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/portfolio.nigerdev.com/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
 
-description : 2–3 phrases fluides, orientées valeur (ce que ça apporte) + 1 phrase sur les fonctionnalités clés si pertinent.
-
-url : le lien du projet (ou null s’il n’y en a pas).
-
-image : le chemin d’image fourni (inchangé).
-
-tags : 3 à 6 mots-clés (tech, domaine, type de solution).
-
-cta : texte d’appel à l’action adapté (ex. « Visiter le site », « Découvrir »).
-
-⚙️ Contraintes de style
-
-Ton professionnel, positif, concis. Pas d’exagération marketing.
-
-Pas de fautes d’orthographe ; typographie française (espaces insécables avant : ; ! ?).
-
-Uniformise les noms propres (majuscule initiale), corrige les petites coquilles (ex. Pilates au lieu de Pilate).
-
-Ne change jamais les chemins d’images.
-
-Si l’URL contient un chemin technique (ex. /dashboard, /site/userlogin), conserve l’URL telle quelle.
-
-📦 Format de sortie
-Retourne uniquement un tableau JSON (pas de texte autour), chaque entrée respectant exactement ce schéma :
-
-[
-  {
-    "title": "…",
-    "subtitle": "…",
-    "description": "…",
-    "url": "https://…",
-    "image": "public/project/…",
-    "tags": ["…", "…", "…"],
-    "cta": "…"
-  }
-]
-
-Données projets (source brute à réécrire)
-- url: "https://commandesansfrontiere.com/"
-  image: "public/project/csf.png"
-  title_hint: "Commande Sans Frontière — Transport multimodal"
-  raw: >
-    Transport aérien, maritime et routier - Solutions sur mesure pour vos besoins
-    Commerce International & Transport. Plus de 5 ans d'expérience - Livraison rapide
-    et sécurisée depuis la Chine.
-
-- url: "https://staff.nigerdev.com/dashboard"
-  image: "public/project/staff.png"
-  title_hint: "NigerDev Staff — Application de gestion d’entreprise"
-  raw: >
-    Application de gestion d'une entreprise avec les employés, la gestion des stagiaires
-    et la gestion des salaires.
-
-- url: "https://hydrolink.ptrniger.com/"
-  image: "public/project/hydrolink.png"
-  title_hint: "HydroLink — Solutions durables"
-  raw: >
-    Solutions durables en BTP, hydraulique, e-commerce & commerce général.
-    Des solutions de qualité pour le développement du Niger.
-
-- url: "https://ayki.ptrniger.com/"
-  image: "public/project/ayki-emploi.png"
-  title_hint: "AYKI — Plateforme de recrutement"
-  raw: >
-    Connectez les talents aux opportunités. AYKI simplifie le recrutement en connectant
-    directement les meilleurs candidats avec les entreprises qui recherchent leurs compétences.
-
-- url: "https://ptrniger.com/"
-  image: "public/project/ptrniger-elearning.png"
-  title_hint: "PTR Niger — Plateforme e-learning"
-  raw: >
-    Formations en entrepreneuriat, marketing digital, informatique et plus.
-    Les élèves s'inscrivent et apprennent directement sur la plateforme.
-
-- url: "https://school.ptrniger.com/site/userlogin"
-  image: "public/project/school.jpeg"
-  title_hint: "PTR School — Gestion scolaire"
-  raw: >
-    Application de gestion scolaire complète : bibliothèques, gestion du personnel,
-    comptabilité, paiement des personnels et professeurs, inscription, scolarités,
-    emplois du temps, examens, devoirs.
-
-- url: "https://emma-lab.ptrniger.com/"
-  image: "public/project/emalab.png"
-  title_hint: "EMMA-Lab — Laboratoire d’innovation"
-  raw: >
-    Innovons ensemble pour l'avenir. EMMA-Lab accompagne les entrepreneurs et les
-    organisations dans leur transformation digitale et leurs projets innovants.
-
-- url: "https://lastuce.ptrniger.com/fr"
-  image: "public/project/lastuce.png"
-  title_hint: "L’Astuce — Communauté d’astuces"
-  raw: >
-    Découvrez les meilleures astuces et techniques avec une communauté passionnée.
-    Conseils pratiques pour améliorer le quotidien. Actions : Voir les épisodes, Proposer mon astuce.
-
-- url: "https://guidacenter.com/"
-  image: "public/project/guidacenter.png"
-  title_hint: "GuidaCenter — Immobilier au Niger"
-  raw: >
-    Plateforme immobilière moderne pour simplifier l'achat, la vente et la location
-    de biens au Niger.
-
-- url: "https://softis.jp/"
-  image: "public/project/softis.png"
-  title_hint: "Softis Pilates — Club sportif (Japon)"
-  raw: >
-    Plateforme complète pour un club sportif de Pilates au Japon.
-
-- url: "https://nina.nigerdev.com/"
-  image: "public/project/nina.png"
-  title_hint: "Nina Massage & Kiné — Niamey"
-  raw: >
-    Centre de massage professionnel à Niamey (Massage & Kinésithérapie).
-    Services premium : drainage lymphatique, massage 4 mains, soins esthétiques, etc.
-
-- url: null
-  image: "public/project/icall26.png"
-  title_hint: "iCall CRM — Suite CRM"
-  raw: >
-    Création d’un CRM avec de très nombreuses fonctionnalités.
-
-- url: null
-  image: "public/project/gestion1.png"
-  title_hint: "Gestion Boutique — Stocks & Comptabilité"
-  raw: >
-    Application de gestion de boutique : stocks, comptabilité, revenus et opérations commerciales.
-
-- url: null
-  image: "public/project/shop.png"
-  title_hint: "Shop POS — Gestion commerciale complète"
-  raw: >
-    Application de gestion commerciale complète : fournisseurs, comptabilité, achats,
-    QR codes et POS pour des ventes instantanées.
-
-Exigences supplémentaires
-
-Les title doivent être ≤ 60 caractères si possible.
-
-Les description doivent rester lisibles dans une carte (≈ 40–70 mots).
-
-Les tags mélangent domaine (ex. Transport, Éducation, Immobilier), type (ex. SaaS, Plateforme, Back-office) et éventuelles techno/dimension (ex. e-commerce, POS, CRM).
-
-Choisis un cta pertinent : « Visiter le site », « Accéder au tableau de bord », « Découvrir la plateforme », « En savoir plus », etc.
-
-N’invente aucune fonctionnalité non mentionnée.
+    ErrorLog ${APACHE_LOG_DIR}/portfolio.nigerdev.com_ssl_error.log
+    CustomLog ${APACHE_LOG_DIR}/portfolio.nigerdev.com_ssl_access.log combined
+</VirtualHost> 
