@@ -11,8 +11,8 @@ export const translations = {
     email: "Email",
 
     // Hero
-    fullstackDeveloper: "Développeur Fullstack Senior",
-    heroDescription: "Développeur Fullstack Senior avec 5+ ans d'expérience en conception d'architectures web, mobile et microservices. Expert en développement front-end (Angular, React, Vue.js), mobile (Flutter), back-end (Spring Boot, Laravel) et DevOps (Docker, Kubernetes). Spécialisé dans la sécurité (JWT, OAuth2, OWASP), les APIs REST/GraphQL et les bases de données SQL/NoSQL.",
+    fullstackDeveloper: "Fullstack Developer",
+    heroDescription: "Fullstack Developer avec 5 ans d'expérience dans le développement web et applicatif. Mes solides compétences dans ce domaine m'ont permis d'obtenir d'excellents résultats dans mes projets.",
     contactMe: "Me contacter",
     learnMore: "En savoir plus",
 
@@ -58,18 +58,10 @@ export const translations = {
     navigation: "Navigation",
     social: "Réseaux",
     availableFor: "Disponible pour missions freelance & contrats",
-    copyright: "Développeur Fullstack Senior",
+    copyright: "Fullstack Developer",
 
     // Projects descriptions
     projectDetails: {
-      entrepriseDebtManagement: {
-        title: "App Gestion Créances",
-        description: "Application multiplateforme Flutter de gestion des créances et dettes des abonnés. Interface web et mobile responsive, tableau de bord analytics, gestion multi-utilisateurs avec rôles et permissions OAuth2, notifications Firebase, exports Excel/PDF, authentification sécurisée JWT et synchronisation temps réel avec backend Spring Boot."
-      },
-      entrepriseEcommerceMobile: {
-        title: "E-Commerce Mobile App",
-        description: "Application mobile e-commerce Flutter complète avec catalogue produits, panier intelligent, paiement sécurisé (conformité OWASP), suivi de commandes en temps réel, favoris, notifications push Firebase, mode offline-first, intégration API REST/GraphQL et backend microservices Spring Boot avec MongoDB et Redis pour le cache."
-      },
       entrepriseCsf: {
         title: "Commande Sans Frontière",
         description: "Plateforme de transport multimodal (aérien, maritime et routier) offrant des solutions sur mesure pour le commerce international. Plus de 5 ans d'expérience avec livraison rapide et sécurisée depuis la Chine."
@@ -147,8 +139,8 @@ export const translations = {
     email: "Email",
 
     // Hero
-    fullstackDeveloper: "Senior Fullstack Developer",
-    heroDescription: "Senior Fullstack Developer with 5+ years of experience in web, mobile, and microservices architecture design. Expert in front-end (Angular, React, Vue.js), mobile (Flutter), back-end (Spring Boot, Laravel) and DevOps (Docker, Kubernetes). Specialized in security (JWT, OAuth2, OWASP), REST/GraphQL APIs and SQL/NoSQL databases.",
+    fullstackDeveloper: "Fullstack Developer",
+    heroDescription: "Fullstack Developer with 5 years of experience in web and application development. My strong skills in this field have enabled me to achieve excellent results in my projects.",
     contactMe: "Contact Me",
     learnMore: "Learn More",
 
@@ -194,18 +186,10 @@ export const translations = {
     navigation: "Navigation",
     social: "Social",
     availableFor: "Available for freelance missions & contracts",
-    copyright: "Senior Fullstack Developer",
+    copyright: "Fullstack Developer",
 
     // Projects descriptions
     projectDetails: {
-      entrepriseDebtManagement: {
-        title: "Debt Management App",
-        description: "Flutter cross-platform app for subscriber debt and credit management. Responsive web and mobile interface, analytics dashboard, multi-user management with OAuth2 roles and permissions, Firebase notifications, Excel/PDF exports, secure JWT authentication and real-time sync with Spring Boot backend."
-      },
-      entrepriseEcommerceMobile: {
-        title: "E-Commerce Mobile App",
-        description: "Complete Flutter mobile e-commerce app with product catalog, smart cart, secure payment (OWASP compliance), real-time order tracking, favorites, Firebase push notifications, offline-first mode, REST/GraphQL API integration and Spring Boot microservices backend with MongoDB and Redis for caching."
-      },
       entrepriseCsf: {
         title: "Commande Sans Frontière",
         description: "Multimodal transport platform (air, sea, and road) offering customized solutions for international trade. Over 5 years of experience with fast and secure delivery from China."

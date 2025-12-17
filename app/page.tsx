@@ -29,10 +29,10 @@ import { ProjectDialog } from "@/components/shared/ProjectDialog";
 // ————————————————————————————————————————————
 const profile = {
   name: "Boubacar Mounkaila",
-  role: "Développeur Fullstack Senior",
+  role: "Fullstack Developer",
   photo: "/image/profile.jpeg",
   about:
-    "Développeur Fullstack Senior avec 5+ ans d'expérience en conception d'architectures web, mobile et microservices. Expert en développement front-end (Angular, React, Vue.js), mobile (Flutter), back-end (Spring Boot, Laravel) et DevOps (Docker, Kubernetes). Spécialisé dans la sécurité (JWT, OAuth2, OWASP), les APIs REST/GraphQL et les bases de données SQL/NoSQL.",
+    "Fullstack Developer avec 5 ans d'expérience dans le développement web et applicatif. Mes solides compétences dans ce domaine m'ont permis d'obtenir d'excellents résultats dans mes projets.",
   location: "Niamey, Niger",
   email: "mounkaila144@gmail.com",
   phone: "+227 99777199",
@@ -48,30 +48,22 @@ const skillGroups: { title: string; items: { name: string; icon: string }[] }[] 
       { name: "PHP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" },
       { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
       { name: "TypeScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-      { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-      { name: "Dart", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" },
       { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
     ]
   },
   {
-    title: "Frameworks Web",
+    title: "Frameworks",
     items: [
-      { name: "Laravel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" },
+        {
+            "name": "Laravel",
+            "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg"
+        }
+        ,
       { name: "Symfony", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg" },
-      { name: "Spring Boot", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-      { name: "Angular", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg" },
       { name: "React.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
       { name: "Next.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
       { name: "Vue.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg" },
       { name: "Node.js", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    ]
-  },
-  {
-    title: "Mobile & Desktop",
-    items: [
-      { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
-      { name: "React Native", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-      { name: "Electron", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/electron/electron-original.svg" },
     ]
   },
   {
@@ -89,35 +81,18 @@ const skillGroups: { title: string; items: { name: string; icon: string }[] }[] 
     ]
   },
   {
-    title: "Databases SQL",
+    title: "Databases",
     items: [
       { name: "MySQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
       { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
+      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
       { name: "MERISE", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" },
       { name: "UML", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unifiedmodelinglanguage/unifiedmodelinglanguage-original.svg" },
     ]
   },
   {
-    title: "Databases NoSQL",
+    title: "DevOps & Serveurs",
     items: [
-      { name: "MongoDB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-      { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-      { name: "Redis", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
-    ]
-  },
-  {
-    title: "API & Microservices",
-    items: [
-      { name: "REST API", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-      { name: "GraphQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
-      { name: "Microservices", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-    ]
-  },
-  {
-    title: "DevOps & Orchestration",
-    items: [
-      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-      { name: "Kubernetes", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" },
       { name: "Linux", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" },
       { name: "Ubuntu", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg" },
       { name: "Nginx", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" },
@@ -127,24 +102,14 @@ const skillGroups: { title: string; items: { name: string; icon: string }[] }[] 
     ]
   },
   {
-    title: "Sécurité & Architecture",
-    items: [
-      { name: "JWT", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/json/json-original.svg" },
-      { name: "OAuth2", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oauth/oauth-plain.svg" },
-      { name: "OWASP", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-      { name: "Microservices", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
-    ]
-  },
-  {
     title: "Outils",
     items: [
       { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-      { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-      { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
-      { name: "IntelliJ IDEA", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" },
+      { name: "Docker", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
       { name: "PHPStorm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/phpstorm/phpstorm-original.svg" },
       { name: "WebStorm", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webstorm/webstorm-original.svg" },
-      { name: "Postman", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg" },
+      { name: "VS Code", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+      { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
     ]
   },
 ];
@@ -190,30 +155,6 @@ const companies = [
 
 const projects = [
   {
-    id: "entreprise-debt-management",
-    title: "App Gestion Créances",
-    company: "Freelance",
-    kind: "Entreprise",
-    year: "2024",
-    cover: "/project/app mobile apprendre arabe.png",
-    description:
-      "Application multiplateforme Flutter de gestion des créances et dettes des abonnés. Interface web et mobile responsive, tableau de bord analytics, gestion multi-utilisateurs avec rôles et permissions OAuth2, notifications Firebase, exports Excel/PDF, authentification sécurisée JWT et synchronisation temps réel avec backend Spring Boot.",
-    tags: ["Flutter", "Dart", "Spring Boot", "Firebase", "JWT", "OAuth2", "PostgreSQL", "REST API", "Docker"],
-    links: { site: "#", repo: "#" },
-  },
-  {
-    id: "entreprise-ecommerce-mobile",
-    title: "E-Commerce Mobile App",
-    company: "Freelance",
-    kind: "Entreprise",
-    year: "2024",
-    cover: "/project/app mobile ecomerce.png",
-    description:
-      "Application mobile e-commerce Flutter complète avec catalogue produits, panier intelligent, paiement sécurisé (conformité OWASP), suivi de commandes en temps réel, favoris, notifications push Firebase, mode offline-first, intégration API REST/GraphQL et backend microservices Spring Boot avec MongoDB et Redis pour le cache.",
-    tags: ["Flutter", "Dart", "Spring Boot", "MongoDB", "GraphQL", "Firebase", "Microservices", "Redis", "OWASP"],
-    links: { site: "#", repo: "#" },
-  },
-  {
     id: "entreprise-csf",
     title: "Commande Sans Frontière",
     company: "Commande Sans Frontière",
@@ -222,7 +163,7 @@ const projects = [
     cover: "/project/csf.png",
     description:
       "Plateforme de transport multimodal (aérien, maritime et routier) offrant des solutions sur mesure pour le commerce international. Plus de 5 ans d'expérience avec livraison rapide et sécurisée depuis la Chine.",
-    tags: ["Laravel", "Vue.js", "MySQL", "REST API", "Docker", "Logistique"],
+    tags: ["Transport", "E-commerce", "Logistique", "International"],
     links: { site: "https://commandesansfrontiere.com/", repo: "#" },
   },
   {
@@ -234,7 +175,7 @@ const projects = [
     cover: "/project/staff.png",
     description:
       "Application complète de gestion d'entreprise intégrant la gestion des employés, le suivi des stagiaires et l'administration des salaires. Solution centralisée pour optimiser les processus RH.",
-    tags: ["Laravel", "Vue.js", "MySQL", "REST API", "JWT", "SaaS", "Docker"],
+    tags: ["SaaS", "RH", "Gestion", "Back-office"],
     links: { site: "https://staff.nigerdev.com/dashboard", repo: "#" },
   },
   {
@@ -270,7 +211,7 @@ const projects = [
     cover: "/project/ptrniger-elearning.png",
     description:
       "Plateforme e-learning proposant des formations en entrepreneuriat, marketing digital, informatique et plus. Les élèves s'inscrivent et apprennent directement en ligne avec un suivi personnalisé.",
-    tags: ["Laravel", "React", "PostgreSQL", "REST API", "Firebase", "E-learning"],
+    tags: ["E-learning", "Éducation", "Plateforme", "Formation"],
     links: { site: "https://ptrniger.com/", repo: "#" },
   },
   {
@@ -282,7 +223,7 @@ const projects = [
     cover: "/project/school.jpeg",
     description:
       "Solution de gestion scolaire complète : bibliothèques, gestion du personnel, comptabilité, paiement des personnels et professeurs, inscription, scolarités, emplois du temps, examens et devoirs. Une plateforme tout-en-un pour les établissements.",
-    tags: ["Laravel", "Angular", "MySQL", "REST API", "OAuth2", "SaaS"],
+    tags: ["Gestion scolaire", "SaaS", "Éducation", "Back-office"],
     links: { site: "https://school.ptrniger.com/site/userlogin", repo: "#" },
   },
   {
@@ -354,7 +295,7 @@ const projects = [
     cover: "/project/icall26.png",
     description:
       "Suite CRM complète avec de très nombreuses fonctionnalités : gestion des contacts, suivi des opportunités, automatisation des processus et rapports analytiques. Solution robuste pour la gestion de la relation client.",
-    tags: ["Laravel", "Vue.js", "PostgreSQL", "REST API", "JWT", "CRM", "Docker"],
+    tags: ["CRM", "SaaS", "Gestion", "Entreprise"],
     links: { site: "#", repo: "#" },
   },
   {
@@ -378,7 +319,7 @@ const projects = [
     cover: "/project/shop.png",
     description:
       "Application de gestion commerciale complète : fournisseurs, comptabilité, achats, QR codes et système POS pour des ventes instantanées. Solution tout-en-un pour la gestion de points de vente.",
-    tags: ["Laravel", "React", "MySQL", "REST API", "QR Code", "POS", "Redis"],
+    tags: ["POS", "E-commerce", "Gestion", "QR Code"],
     links: { site: "#", repo: "#" },
   },
 ];
