@@ -167,18 +167,6 @@ const projects = [
     links: { site: "https://commandesansfrontiere.com/", repo: "#" },
   },
   {
-    id: "entreprise-staff",
-    title: "NigerDev Staff",
-    company: "NigerDev",
-    kind: "Entreprise",
-    year: "2023–2024",
-    cover: "/project/staff.png",
-    description:
-      "Application complète de gestion d'entreprise intégrant la gestion des employés, le suivi des stagiaires et l'administration des salaires. Solution centralisée pour optimiser les processus RH.",
-    tags: ["SaaS", "RH", "Gestion", "Back-office"],
-    links: { site: "https://staff.nigerdev.com/dashboard", repo: "#" },
-  },
-  {
     id: "entreprise-hydrolink",
     title: "HydroLink",
     company: "PTR Niger",
@@ -273,18 +261,6 @@ const projects = [
       "Plateforme complète pour un club sportif de Pilates au Japon. Gestion des cours, réservations, membres et planning pour une expérience utilisateur optimale.",
     tags: ["Sport", "Pilates", "SaaS", "Japon"],
     links: { site: "https://softis.jp/", repo: "#" },
-  },
-  {
-    id: "freelance-nina",
-    title: "Nina Massage & Kiné",
-    company: "Freelance",
-    kind: "Freelance",
-    year: "2023",
-    cover: "/project/nina.png",
-    description:
-      "Centre de massage professionnel à Niamey proposant massage et kinésithérapie. Services premium : drainage lymphatique, massage 4 mains, soins esthétiques et bien plus.",
-    tags: ["Santé", "Bien-être", "Massage", "Niamey"],
-    links: { site: "https://nina.nigerdev.com/", repo: "#" },
   },
   {
     id: "personnel-icall",
