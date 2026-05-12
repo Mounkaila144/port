@@ -56,22 +56,15 @@ export async function generateMetadata({
       url: `${process.env.NEXT_PUBLIC_SITE_URL ?? "https://agency.ptrniger.com"}/${locale}`,
       title,
       description,
-      siteName: "Portfolio Boubacar Mounkaila",
-      images: [
-        {
-          url: "/image/profile.jpeg",
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      siteName: "PTR Niger Agency",
+      // Image auto-discovered from app/[locale]/opengraph-image.tsx.
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: ["/image/profile.jpeg"],
       creator: "@mounkaila144",
+      // Image auto-discovered from the same OG file (Twitter falls back to og:image).
     },
     robots: {
       index: true,
