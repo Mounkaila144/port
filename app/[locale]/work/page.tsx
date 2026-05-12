@@ -59,7 +59,7 @@ export default function WorkPage() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={t("work.search")}
-            className="w-full rounded-full border border-white/[0.08] bg-surface/60 px-12 py-3 text-sm text-off-white placeholder:text-muted focus:border-ptr-teal/40 focus:outline-none"
+            className="w-full rounded-full border border-line bg-surface/60 px-12 py-3 text-sm text-off-white placeholder:text-muted focus:border-ptr-teal/40 focus:outline-none"
           />
         </div>
         <div className="flex flex-wrap gap-2">
@@ -77,7 +77,7 @@ export default function WorkPage() {
             const cs = projectCaseStudy(p);
             const slug = cs ? (locale === "fr" ? cs.slugFr : cs.slug) : null;
             const card = (
-              <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-surface/60 transition-colors hover:border-ptr-teal/40">
+              <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface/60 transition-colors hover:border-ptr-teal/40">
                 <div className="relative aspect-[16/10]">
                   <Image
                     src={p.cover}
@@ -87,9 +87,9 @@ export default function WorkPage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/30 to-transparent" />
-                  <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/40 px-2.5 py-1 font-mono text-[10px] uppercase text-off-white backdrop-blur-md">
+                  <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white backdrop-blur-md">
                     {p.region && <span>{p.region}</span>}
-                    <span>·</span>
+                    {p.region && <span aria-hidden className="opacity-60">·</span>}
                     <span>{p.year}</span>
                   </div>
                 </div>
@@ -107,7 +107,7 @@ export default function WorkPage() {
                     {p.tags.slice(0, 3).map((tag) => (
                       <li
                         key={tag}
-                        className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10px] font-mono uppercase text-muted"
+                        className="rounded-full border border-line bg-soft px-2 py-0.5 text-[10px] font-mono uppercase text-muted"
                       >
                         {tag}
                       </li>
@@ -163,7 +163,7 @@ function FilterGroup({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex items-center gap-1 rounded-full border border-white/[0.08] bg-white/[0.02] p-1">
+    <div className="flex items-center gap-1 rounded-full border border-line bg-soft p-1">
       <span className="px-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted">{label}</span>
       {items.map((it) => (
         <button
