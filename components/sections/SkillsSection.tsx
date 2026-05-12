@@ -1,9 +1,8 @@
 "use client"
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Layers } from "lucide-react";
 import { translations, type Language } from "@/lib/translations";
 
 interface SkillsSectionProps {
@@ -14,180 +13,142 @@ interface SkillsSectionProps {
   language: Language;
 }
 
-function SectionTitle({ icon: Icon, title, subtitle }: any) {
+const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const titleMap: Record<string, string> = {
+  Langages: "Languages",
+  Outils: "Tools",
+};
+
+function MarqueeRow({ items, reverse = false }: { items: { name: string; icon: string }[]; reverse?: boolean }) {
+  const doubled = [...items, ...items, ...items];
   return (
-    <div className="mb-6 sm:mb-8">
-      <motion.h2
-        className="flex items-center gap-2 sm:gap-3 text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white via-violet-200 to-fuchsia-200 bg-clip-text text-transparent"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+    <div className="relative w-full overflow-hidden">
+      <div
+        className="flex gap-4 sm:gap-6"
+        style={{
+          animation: `marquee ${items.length * 12}s linear infinite${reverse ? " reverse" : ""}`,
+          width: "max-content",
+        }}
       >
-        <Icon className="h-6 w-6 sm:h-7 sm:w-7 text-violet-400" /> {title}
-      </motion.h2>
-      {subtitle && (
-        <motion.p
-          className="mt-2 text-sm sm:text-base text-white/70 ml-8 sm:ml-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {subtitle}
-        </motion.p>
-      )}
+        {doubled.map((item, i) => (
+          <div
+            key={`${item.name}-${i}`}
+            className="group flex items-center gap-3 whitespace-nowrap rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 backdrop-blur-md transition-all duration-300 hover:border-[#C4F046]/40 hover:bg-[#C4F046]/[0.05]"
+          >
+            <div className="relative h-6 w-6 shrink-0">
+              <Image
+                src={item.icon}
+                alt={item.name}
+                width={24}
+                height={24}
+                unoptimized
+                className="h-full w-full object-contain transition-all duration-300 group-hover:scale-110"
+              />
+            </div>
+            <span className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">
+              {item.name}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
 export function SkillsSection({ skillGroups, language }: SkillsSectionProps) {
   const t = translations[language];
-
-  // Couleurs de gradient par catégorie
-  const gradientColors: { [key: string]: string[] } = {
-    'Langages': ['from-violet-500/20', 'to-fuchsia-500/20', 'hover:from-violet-500/30', 'hover:to-fuchsia-500/30', 'border-violet-500/20'],
-    'Languages': ['from-violet-500/20', 'to-fuchsia-500/20', 'hover:from-violet-500/30', 'hover:to-fuchsia-500/30', 'border-violet-500/20'],
-    'Frameworks': ['from-cyan-500/20', 'to-teal-500/20', 'hover:from-cyan-500/30', 'hover:to-teal-500/30', 'border-cyan-500/20'],
-    'UI/Design': ['from-pink-500/20', 'to-rose-500/20', 'hover:from-pink-500/30', 'hover:to-rose-500/30', 'border-pink-500/20'],
-    'Databases': ['from-emerald-500/20', 'to-green-500/20', 'hover:from-emerald-500/30', 'hover:to-green-500/30', 'border-emerald-500/20'],
-    'Outils': ['from-orange-500/20', 'to-amber-500/20', 'hover:from-orange-500/30', 'hover:to-amber-500/30', 'border-orange-500/20'],
-    'Tools': ['from-orange-500/20', 'to-amber-500/20', 'hover:from-orange-500/30', 'hover:to-amber-500/30', 'border-orange-500/20'],
-  };
-
-  // Icône de badge par catégorie
-  const categoryIcons: { [key: string]: string } = {
-    'Langages': '💻',
-    'Languages': '💻',
-    'Frameworks': '⚛️',
-    'UI/Design': '🎨',
-    'Databases': '🗄️',
-    'Outils': '🛠️',
-    'Tools': '🛠️',
-  };
+  const total = skillGroups.reduce((acc, g) => acc + g.items.length, 0);
 
   return (
-    <>
-      <SectionTitle icon={Layers} title={t.skillsTitle} subtitle={t.skillsSubtitle} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
-        {skillGroups.map((g, groupIndex) => {
-          const translatedTitle = language === 'fr' ? g.title :
-            g.title === 'Langages' ? 'Languages' :
-            g.title === 'Outils' ? 'Tools' :
-            g.title;
+    <section className="space-y-10 sm:space-y-14">
+      {/* Header */}
+      <div className="space-y-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-white/50"
+        >
+          <span className="h-px w-12 bg-[#C4F046]" />
+          <span>02 / {language === "fr" ? "Stack" : "Stack"}</span>
+        </motion.div>
 
-          const colors = gradientColors[translatedTitle] || gradientColors['Langages'];
-          const icon = categoryIcons[translatedTitle] || '📦';
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: easing }}
+          className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight"
+        >
+          <span className="text-white">{language === "fr" ? "Outils du" : "Tools of"}</span>
+          <br />
+          <span className="text-mask-lime italic">{language === "fr" ? "métier" : "the trade"}</span>
+        </motion.h2>
 
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: easing }}
+          className="max-w-2xl text-base sm:text-lg text-white/60"
+        >
+          {t.skillsSubtitle} —{" "}
+          <span className="font-mono text-[#C4F046]">{total}</span>{" "}
+          {language === "fr" ? "technologies au quotidien." : "daily technologies."}
+        </motion.p>
+      </div>
+
+      {/* Marquee rows */}
+      <div className="space-y-4 sm:space-y-5">
+        {skillGroups.map((g, idx) => {
+          const translatedTitle = language === "fr" ? g.title : titleMap[g.title] || g.title;
           return (
             <motion.div
               key={g.title}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
+              transition={{ duration: 0.7, delay: idx * 0.08, ease: easing }}
+              className="space-y-3"
             >
-              <Card className="group relative overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-transparent backdrop-blur-xl hover:border-white/20 transition-all duration-500 hover:shadow-2xl hover:shadow-violet-500/10">
-                {/* Gradient de fond animé */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${colors[0]} ${colors[1]} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-
-                {/* Effet de lumière au survol */}
-                <div className="absolute -inset-1 bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-600 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
-
-                <CardHeader className="relative p-5 sm:p-6 border-b border-white/5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <h3 className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent group-hover:from-violet-200 group-hover:to-fuchsia-200 transition-all duration-300">
-                        {translatedTitle}
-                      </h3>
-                      <span className="px-2 py-0.5 text-xs font-semibold bg-white/10 text-white/90 rounded-full border border-white/20">
-                        {g.items.length}
-                      </span>
-                    </div>
-                    <span className="text-2xl group-hover:scale-125 transition-transform duration-300">
-                      {icon}
-                    </span>
-                  </div>
-                  <div className="mt-2 h-1 w-12 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full group-hover:w-20 transition-all duration-500" />
-                </CardHeader>
-
-                <CardContent className="relative grid grid-cols-3 gap-3 sm:gap-4 p-5 sm:p-6">
-                  {g.items.map((item, index) => (
-                    <motion.div
-                      key={item.name}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{
-                        duration: 0.3,
-                        delay: groupIndex * 0.1 + index * 0.05
-                      }}
-                      whileHover={{
-                        scale: 1.1,
-                        rotate: [0, -5, 5, 0],
-                        transition: { duration: 0.3 }
-                      }}
-                      className="group/item relative"
-                    >
-                      <div className="flex flex-col items-center justify-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer">
-                        {/* Glow effect */}
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-violet-500/0 to-fuchsia-500/0 group-hover/item:from-violet-500/20 group-hover/item:to-fuchsia-500/20 transition-all duration-300" />
-
-                        {/* Badge de notification (optionnel) */}
-                        <div className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 animate-pulse" />
-
-                        <div className="relative w-12 h-12 sm:w-14 sm:h-14 mb-2 sm:mb-3">
-                          {/* Shadow effect */}
-                          <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 blur-md opacity-0 group-hover/item:opacity-100 transition-opacity duration-300" />
-
-                          <img
-                            src={item.icon}
-                            alt={item.name}
-                            className="relative w-full h-full object-contain filter brightness-90 group-hover/item:brightness-110 transition-all duration-300"
-                          />
-                        </div>
-
-                        <span className="text-xs sm:text-sm text-white/80 group-hover/item:text-white text-center font-medium transition-colors duration-300 line-clamp-2">
-                          {item.name}
-                        </span>
-
-                        {/* Barre de progression stylée */}
-                        <div className="mt-2 w-full h-1 bg-white/10 rounded-full overflow-hidden">
-                          <motion.div
-                            className="h-full bg-gradient-to-r from-violet-500 to-fuchsia-500"
-                            initial={{ width: 0 }}
-                            whileHover={{ width: "100%" }}
-                            transition={{ duration: 0.5 }}
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </CardContent>
-              </Card>
+              <div className="flex items-center gap-4 px-1">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span className="font-display text-sm sm:text-base text-white">{translatedTitle}</span>
+                <span className="font-mono text-xs text-[#C4F046]">[{g.items.length}]</span>
+                <div className="h-px flex-1 bg-gradient-to-r from-white/15 to-transparent" />
+              </div>
+              <MarqueeRow items={g.items} reverse={idx % 2 === 1} />
             </motion.div>
           );
         })}
       </div>
 
-      {/* Statistique totale */}
+      {/* Stat block */}
       <motion.div
-        className="mt-8 sm:mt-10 text-center"
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: easing }}
+        className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 sm:pt-6"
       >
-        <div className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-cyan-500/10 border border-white/10 backdrop-blur-xl">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-            <span className="text-sm sm:text-base text-white/80">
-              {language === 'fr' ? 'Total' : 'Total'}:
-            </span>
+        {[
+          { value: total.toString(), label: language === "fr" ? "Compétences" : "Skills" },
+          { value: skillGroups.length.toString(), label: language === "fr" ? "Catégories" : "Categories" },
+          { value: "5+", label: language === "fr" ? "Années XP" : "Years XP" },
+          { value: "∞", label: language === "fr" ? "Curiosité" : "Curiosity" },
+        ].map((s, i) => (
+          <div
+            key={i}
+            className="group rounded-2xl border border-white/10 bg-white/[0.02] p-5 backdrop-blur-md transition-all duration-300 hover:border-[#C4F046]/30 hover:bg-[#C4F046]/[0.03]"
+          >
+            <div className="font-display text-3xl sm:text-4xl text-white group-hover:text-[#C4F046] transition-colors">
+              {s.value}
+            </div>
+            <div className="font-mono text-[10px] uppercase tracking-wider text-white/50 mt-1.5">
+              {s.label}
+            </div>
           </div>
-          <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent">
-            {skillGroups.reduce((acc, g) => acc + g.items.length, 0)}
-          </span>
-          <span className="text-sm sm:text-base text-white/60">
-            {language === 'fr' ? 'compétences' : 'skills'}
-          </span>
-        </div>
+        ))}
       </motion.div>
-    </>
+    </section>
   );
 }

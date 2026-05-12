@@ -15,9 +15,13 @@
 
 # next.js
 /.next/
+/out/
 
 # production
 /build
+
+# runtime data (contact submissions etc.)
+/data/
 
 # misc
 .DS_Store

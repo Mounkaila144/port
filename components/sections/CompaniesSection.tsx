@@ -1,79 +1,113 @@
 "use client"
 
 import React from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Globe, Briefcase } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Globe } from "lucide-react";
 import { translations, type Language } from "@/lib/translations";
-
-interface Company {
-  id: string;
-  name: string;
-  role: string;
-  years: string;
-  logo: string;
-  desc: string;
-  site: string;
-}
+import type { Company } from "@/content/types";
 
 interface CompaniesSectionProps {
   companies: Company[];
   language: Language;
 }
 
-function SectionTitle({ icon: Icon, title, subtitle }: any) {
-  return (
-    <div className="mb-4 sm:mb-6">
-      <h2 className="flex items-center gap-1.5 sm:gap-2 text-lg sm:text-xl lg:text-2xl font-semibold">
-        <Icon className="h-5 w-5 sm:h-6 sm:w-6" /> {title}
-      </h2>
-      {subtitle && <p className="mt-1 text-sm sm:text-base text-white/70">{subtitle}</p>}
-    </div>
-  );
-}
+const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export function CompaniesSection({ companies, language }: CompaniesSectionProps) {
   const t = translations[language];
 
+  const getDesc = (c: Company) =>
+    language === "fr"
+      ? c.desc
+      : c.id === "freelance"
+        ? t.companyDescriptions.freelance
+        : c.id === "icall"
+          ? t.companyDescriptions.icall
+          : c.id === "ptr-niger"
+            ? t.companyDescriptions.ptrNiger
+            : c.id === "idev-niger"
+              ? t.companyDescriptions.idevNiger
+              : c.desc;
+
   return (
-    <>
-      <SectionTitle icon={Briefcase} title={t.companiesTitle} subtitle={t.companiesSubtitle} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-        {companies.map((c) => (
-          <Card key={c.id} className="group rounded-xl sm:rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 backdrop-blur-xl hover:shadow-2xl transition">
-            <CardContent className="p-4 sm:p-5">
-              <div className="h-28 sm:h-36 w-full overflow-hidden rounded-lg sm:rounded-xl border border-white/10">
-                <img src={c.logo} alt={c.name} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="mt-3 sm:mt-4">
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-base sm:text-lg font-semibold truncate">{c.name}</h3>
-                  <Badge className="bg-white/10 border border-white/10 text-xs shrink-0">{c.years}</Badge>
-                </div>
-                <p className="mt-2 text-xs sm:text-sm text-white/80 leading-relaxed">
-                  {language === 'fr' ? c.desc :
-                    c.id === 'freelance' ? t.companyDescriptions.freelance :
-                    c.id === 'icall' ? t.companyDescriptions.icall :
-                    c.id === 'ptr-niger' ? t.companyDescriptions.ptrNiger :
-                    c.id === 'idev-niger' ? t.companyDescriptions.idevNiger :
-                    c.desc
-                  }
-                </p>
-                <div className="mt-3 flex items-center gap-2 sm:gap-3">
-                  {c.site !== "#" && (
-                    <a href={c.site} target="_blank" rel="noreferrer">
-                      <Button size="sm" variant="secondary" className="rounded-xl text-xs sm:text-sm h-8 sm:h-9 px-2 sm:px-3">
-                        <Globe className="mr-1 sm:mr-2 h-3 w-3 sm:h-4 sm:w-4" />{t.site}
-                      </Button>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+    <section className="space-y-10 sm:space-y-14">
+      {/* Header */}
+      <div className="space-y-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-white/50"
+        >
+          <span className="h-px w-12 bg-[#C4F046]" />
+          <span>04 / {language === "fr" ? "Parcours" : "Journey"}</span>
+        </motion.div>
+
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: easing }}
+          className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight"
+        >
+          <span className="text-white">{language === "fr" ? "Là où j'ai" : "Where I've"}</span>{" "}
+          <span className="text-mask-lime italic">{language === "fr" ? "construit" : "built"}</span>
+        </motion.h2>
       </div>
-    </>
+
+      {/* Timeline */}
+      <div className="relative">
+        <div className="absolute left-4 sm:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-[#C4F046]/40 via-white/10 to-transparent" />
+
+        <div className="space-y-4 sm:space-y-5">
+          {companies.map((c, idx) => (
+            <motion.div
+              key={c.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7, delay: idx * 0.08, ease: easing }}
+              className="relative pl-12 sm:pl-16 group"
+            >
+              {/* Dot */}
+              <div className="absolute left-2.5 sm:left-4.5 top-6 flex h-3 w-3 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#C4F046] opacity-30 group-hover:opacity-60 transition-opacity" />
+                <span className="relative h-2 w-2 rounded-full bg-[#C4F046]" />
+              </div>
+
+              <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-5 sm:p-6 backdrop-blur-md transition-all duration-500 hover:border-[#C4F046]/25 hover:bg-white/[0.04]">
+                <div className="grid grid-cols-1 sm:grid-cols-[140px,1fr] gap-4 sm:gap-6 items-start">
+                  <div className="space-y-2">
+                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#C4F046]">
+                      {c.years}
+                    </div>
+                    <div className="font-display text-xl sm:text-2xl text-white tracking-tight">
+                      {c.name}
+                    </div>
+                    <div className="text-xs font-mono text-white/50">{c.role}</div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <p className="text-sm sm:text-base text-white/70 leading-relaxed">
+                      {getDesc(c)}
+                    </p>
+                    {c.site !== "#" && (
+                      <a
+                        href={c.site}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#C4F046] hover:text-[#D4FF5A] transition-colors"
+                      >
+                        <Globe className="h-3 w-3" />
+                        {t.site}
+                        <ArrowUpRight className="h-3 w-3" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

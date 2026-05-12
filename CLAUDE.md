@@ -4,224 +4,102 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a modern portfolio website built with Next.js 15, React 19, and Tailwind CSS v4. It features a single-page application with smooth animations, interactive project filtering, and bilingual support (French/English).
+Marketing site for **PTR Niger Agency** (`agency.ptrniger.com`), built with Next.js 15 App Router + React 19, TypeScript strict, Tailwind v4, Framer Motion, and `next-intl` (en/fr with localized pathnames). Ships as a Next.js **standalone** bundle behind Nginx on a VPS (PM2). The legacy `portfolio.nigerdev.com` host 301s into this app.
 
-**Key Features:**
-- Portfolio sections: Profile, Skills, Projects, Companies
-- Advanced project filtering system (by type, tags, search)
-- Framer Motion animations including 3D tilt effects on cards
-- Bilingual interface with runtime language switching
-- Dark theme with gradient overlays
-- Fully responsive design
+The codebase has been migrated away from the original single-page portfolio (`app/page.tsx`); do not trust the old `README.md` — content now lives in `content/*.ts` modules, copy in `messages/{en,fr}.json`, and pages under `app/[locale]/`.
 
-## Development Commands
+## Commands
 
-### Running the Application
 ```bash
-# Development server with Turbopack (faster builds)
-npm run dev
+npm run dev               # next dev --turbopack (http://localhost:3000)
+npm run build             # runs check:contrast && check:skills, then next build --turbopack
+npm start                 # node .next/standalone/server.js  (NOT next start — standalone output)
 
-# Production build with Turbopack
-npm run build
+npm run check:contrast    # WCAG AA gate on design tokens (scripts/check-contrast.ts)
+npm run check:skills      # Skill-curation gate (scripts/check-skills.ts)
 
-# Start production server
-npm start
+npm run test:e2e          # Playwright smoke tests on http://127.0.0.1:3100
+npm run e2e:prepare       # Build + copy static/public/messages into .next/standalone (run once before test:e2e)
 ```
 
-**Note:** This project uses Next.js 15 with Turbopack enabled by default (via `--turbopack` flag in package.json scripts).
+Run a single Playwright test: `npx playwright test tests/e2e/smoke.spec.ts -g "title fragment"`.
 
-### Development Server
-- Runs on http://localhost:3000 by default
-- Uses Turbopack for faster HMR and builds
-- No separate test or lint commands configured
+There is **no lint/typecheck npm script**. For a typecheck run `npx tsc --noEmit`. The two `check:*` scripts run during `npm run build` and will fail the build, so keep them green.
 
-## Architecture & Code Organization
+## Architecture
 
-### Tech Stack
-- **Framework:** Next.js 15 with App Router
-- **React:** v19.1.0 (latest with React Compiler support)
-- **TypeScript:** Strict mode enabled
-- **Styling:** Tailwind CSS v4 (latest major version)
-- **Animations:** Framer Motion v12
-- **UI Components:** Shadcn UI (Radix UI primitives)
-- **Icons:** Lucide React
+### Routing & i18n
+- `next-intl` with `localePrefix: "always"` — every URL is `/en/...` or `/fr/...`. There is no unprefixed root page; `/` is handled by middleware redirect.
+- Locale definition, supported locales, default, and **localized pathnames** (e.g. `/work` ↔ `/realisations`, `/about` ↔ `/a-propos`) live in `lib/i18n/routing.ts`. Any new route must be added there if it needs an FR slug.
+- `i18n/request.ts` is the next-intl request config wired in `next.config.ts` via `createNextIntlPlugin("./i18n/request.ts")`.
+- Messages live in `messages/en.json` and `messages/fr.json`. Read them in server components via `getTranslations()` and in client components via `useTranslations()` from `next-intl`.
+- `lib/translations.ts` is a tiny helper exposing the raw JSON typed against `en` — useful for non-component code that needs lookup by key.
+- The root `app/layout.tsx` is intentionally a pass-through; the real document shell (html/body, fonts, providers, header/footer, aurora background, cookie banner) is `app/[locale]/layout.tsx`.
 
-### Directory Structure
-```
-app/
-  ├── page.tsx          # Main portfolio page (all sections)
-  ├── layout.tsx        # Root layout with metadata
-  └── globals.css       # Global styles and CSS variables
+### Pages
+`app/[locale]/`:
+- `page.tsx` — home (Hero, TrustStrip, FeaturedCaseStudies, ServicesOverview, SecondaryCta, JSON-LD)
+- `work/page.tsx` — projects listing
+- `services/page.tsx`
+- `case-studies/page.tsx` and `case-studies/[slug]/page.tsx`
+- `about/page.tsx`, `contact/page.tsx`, `privacy/page.tsx`
+- `error.tsx`, `not-found.tsx`
 
-components/
-  ├── ui/               # Shadcn UI components (badge, button, card, dialog, input, separator, tabs)
-  └── [unused shared/sections folders exist but not imported]
+Always call `setRequestLocale(locale)` in server pages/layouts before reading translations so next-intl static rendering works for `generateStaticParams` over `routing.locales`.
 
-lib/
-  ├── translations.ts   # Bilingual content (fr/en)
-  ├── utils.ts          # cn() utility for className merging
-  ├── types.ts          # Type definitions
-  └── data.ts           # Data models
-```
+### Components
+- `components/site/*` — marketing surface (`SiteHeader`, `SiteFooter`, `Hero`, `ContactForm`, `JsonLd`, `CookieBanner`, etc.). New sections for marketing pages belong here.
+- `components/sections/*` — legacy portfolio sections (`ProfileSection`, `ProjectsSection`, etc.). Used by `/work` and similar pages.
+- `components/shared/*` — cross-cutting UI (`AuroraBackground`, `ScrollProgress`, `LocaleSwitcher`, `MagneticButton`, `ProjectDialog`).
+- `components/ui/*` — Shadcn primitives over Radix.
+- `components/tech-icon.tsx` — DevIcon CDN wrapper used by skills.
 
-### Key Patterns
+### Content vs. copy
+- **Structured data** (projects, case studies, companies, skills, profile) is TypeScript in `content/*.ts`. Types live in `content/types.ts`. Edit these to add a project or case study.
+- **Display copy** (labels, paragraphs, microcopy) is in `messages/{en,fr}.json`. Keep both locales in sync — there is no fallback, missing keys will render the key string.
+- `content/skills.mastery.txt` is the authoritative skill whitelist. `scripts/check-skills.ts` fails the build if `content/skills.ts` declares a skill not on the list — add to the whitelist first, then to `skills.ts`.
 
-#### Single-Page Architecture
-All portfolio content is in `app/page.tsx` as a single component (~968 lines). This includes:
-- Profile, skills, projects, and companies data (lines 38-139)
-- Custom hooks (useTilt for 3D card effects, lines 226-248)
-- Sub-components (ProjectCard, FilterBar, ProjectDialog, etc.)
-- Main Portfolio component with state management
+### Contact pipeline (`POST /api/contact`)
+`app/api/contact/route.ts` → `lib/contact-pipeline.ts`. Flow:
+1. `lib/rate-limit.ts` — in-memory token bucket keyed by IP. Single-process only; for multi-instance you'd need an external store.
+2. Zod validation (`contactSchema`) — required: name, email, type, brief (≥20 chars), consent. Honeypot field `hp` accepts silently.
+3. `persistSubmission` — appends JSONL to `${PTR_DATA_DIR}/contact-submissions.jsonl` (defaults to `<cwd>/data/`). On the VPS, `PTR_DATA_DIR=/srv/ptr/data` so submissions survive `git pull && npm run build`.
+4. `notifyTelegram` — fire-and-forget; no-op if `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` are unset. Never block the HTTP response on it.
+5. UTM params (`utm_source/medium/campaign/content/term`) are captured client-side and stored alongside the brief.
 
-**Data Location:** All content is defined as constants at the top of `app/page.tsx`:
-- `profile` - Personal information (lines 38-48)
-- `skillGroups` - Technologies organized by category (lines 50-100)
-- `companies` - Work experience (lines 102-139)
-- `projects` - Project portfolio (lines 141-220)
+### Security headers
+`middleware.ts` composes `next-intl` middleware with a strict CSP. Production CSP allows only `'self'` for scripts (plus `assets.calendly.com`); JSON-LD uses `type="application/ld+json"` (not script-src). Dev CSP relaxes to `'unsafe-inline' 'unsafe-eval'` for Turbopack HMR. **Do not introduce inline `<script>` tags** — they'll break the prod CSP. Update the middleware matcher if you add static assets that should bypass i18n.
 
-#### Translation System
-Translations are managed in `lib/translations.ts`:
-- Runtime language switching via React state
-- Deep nested structure for project/company descriptions
-- Uses TypeScript for type-safe translation keys
-- Access via `translations[language]` object
+### Build & deploy
+- `next.config.ts` sets `output: "standalone"` and AVIF/WebP image formats.
+- The standalone bundle does **not** include `public/`, `.next/static/`, or `messages/`. The deploy step or `e2e:prepare` copies them in: `cp -r .next/static .next/standalone/.next/static && cp -r public .next/standalone/public && cp -r messages .next/standalone/messages`.
+- Full VPS runbook (Node 20, PM2 `ecosystem.config.cjs`, Nginx vhost in `nginx/agency.conf`, certbot, self-hosted Umami, legacy redirects) is in `docs/deploy.md`. `docs/redirects.md` documents the legacy URL → new URL map enforced by `nginx/portfolio-legacy.conf`.
 
-#### Component Patterns
-- **Client-side only:** Uses `"use client"` directive (no Server Components used)
-- **Framer Motion:** AnimatePresence for enter/exit animations, motion components for effects
-- **Tabs Navigation:** Radix UI Tabs for section switching (Profile/Skills/Projects/Companies)
-- **Dialog System:** Radix UI Dialog for project detail modals
+### Environment
+See `.env.example`. Notable vars: `NEXT_PUBLIC_SITE_URL` (used for canonical URLs, OG, sitemap, JSON-LD), `PTR_DATA_DIR` (contact JSONL location, **must be outside the deploy tree in prod**), `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` (optional), `UMAMI_*` (VPS-only).
 
-#### Styling Approach
-- **CSS Variables:** Theme defined in `app/globals.css` (HSL color system)
-- **Utility-first:** All styling via Tailwind classes
-- **Responsive:** Mobile-first with sm:/md:/lg: breakpoints
-- **cn() utility:** Merges Tailwind classes using clsx + tailwind-merge
+## Conventions
 
-### State Management
-All state is local React state (useState) in the main Portfolio component:
-- `query` - Search filter text
-- `activeKind` - Project type filter (Tous/Entreprise/Freelance/Personnel)
-- `selectedTags` - Technology tag filters
-- `opened` - Currently opened project dialog
-- `tab` - Active section (profil/skills/projects/companies)
-- `language` - Current UI language (fr/en)
+- TypeScript strict; path alias `@/*` → repo root.
+- Server components by default. Add `"use client"` only when you need interactivity (forms, framer-motion variants tied to scroll/hover state, locale switcher).
+- Don't import from `messages/*.json` directly in component code — go through `next-intl`'s `useTranslations`/`getTranslations` so static rendering and the locale split work.
+- Localized navigation: import `Link` / `useRouter` from `lib/i18n/navigation.ts`, not `next/link` / `next/navigation`, so localized pathnames resolve.
+- Add new images to `public/` and reference with a root-relative path; the Next image loader handles AVIF/WebP.
+- The build runs `check:contrast` and `check:skills` — if you change design tokens or add skills, run the corresponding script locally first.
 
-### Custom Hooks
-**useTilt (lines 226-248):** Creates 3D tilt effect on project cards
-- Listens to mouse movement over card elements
-- Calculates rotation based on cursor position
-- Applies transform via inline styles
-- Resets on mouse leave
+## BMad framework
 
-### TypeScript Configuration
-- Target: ES2017
-- Strict mode enabled
-- Path alias: `@/*` maps to root directory
-- JSX: preserve (transformed by Next.js)
-- Module resolution: bundler
+This repo has the BMad workflow framework installed (`_bmad/`, `_bmad-output/`, plus `bmad-*` skills). It provides agent personas (Mary/Analyst, John/PM, Winston/Architect, Sally/UX, Amelia/Dev, Paige/TechWriter) and structured PRD → architecture → epics/stories → implementation workflows.
 
-## Customization Guide
+- Planning artifacts → `_bmad-output/planning-artifacts/`
+- Implementation artifacts → `_bmad-output/implementation-artifacts/`
+- Project knowledge docs → `docs/`
+- `_bmad/config.toml` is installer-managed; override durably via `_bmad/custom/config.toml` (team) or `_bmad/custom/config.user.toml` (personal, gitignored).
 
-### Updating Portfolio Content
-All content is in `app/page.tsx`. Edit these constants:
+When the user invokes a `bmad-*` skill or asks to talk to a named agent, route through the skill rather than improvising.
 
-**Profile Info (lines 38-48):**
-```typescript
-const profile = {
-  name: "Your Name",
-  role: "Your Title",
-  photo: "/image/profile.jpeg",  // or external URL
-  location: "City, Country",
-  email: "your@email.com",
-  phone: "+XXX XXXXXXXX",
-  github: "https://github.com/username",
-};
-```
+## Things to ignore in the repo
 
-**Skills (lines 50-100):**
-- Organized in `skillGroups` array by category
-- Each item has `name` and `icon` (DevIcon CDN URLs)
-- Categories: Langages, Frameworks, UI/Design, Databases, Outils
-
-**Companies (lines 102-139):**
-- Each entry needs `id`, `name`, `role`, `years`, `logo`, `desc`, `site`
-- `site: "#"` if no website available
-- Update matching translations in `lib/translations.ts` under `companyDescriptions`
-
-**Projects (lines 141-220):**
-- Required fields: `id`, `title`, `company`, `kind`, `year`, `cover`, `description`, `tags`, `links`
-- `kind` must be: "Entreprise", "Freelance", or "Personnel"
-- `links.site` and `links.repo` use "#" for unavailable
-- Update matching translations in `lib/translations.ts` under `projectDetails`
-
-### Adding Translations
-Edit `lib/translations.ts`:
-1. Add keys to both `fr` and `en` objects
-2. Access in components via `t.yourKey` where `t = translations[language]`
-3. For nested translations (projects/companies), update `projectDetails` or `companyDescriptions` objects
-
-### SEO/Metadata
-Edit `app/layout.tsx` (lines 15-18):
-```typescript
-export const metadata: Metadata = {
-  title: "Your Title",
-  description: "Your Description",
-};
-```
-
-### Styling Changes
-**Theme Colors:** Edit CSS variables in `app/globals.css` (lines ~20-60)
-- Uses HSL format for colors
-- Separate light/dark themes (dark is primary)
-
-**Animations:** Modify Framer Motion props in `app/page.tsx`:
-- Card entrance animations (lines 273-288)
-- Profile section animations (lines 639-782)
-- Background gradient animations (lines 961-966)
-
-## Important Notes
-
-### Next.js 15 Specifics
-- Uses stable App Router (no Pages directory)
-- Turbopack enabled by default for dev and build
-- React 19 with async Server Components support (though this project uses client-only)
-- Image optimization available but not used (uses img tags with external URLs)
-
-### Unused/Legacy Code
-The following exist but are not imported/used:
-- `components/shared/` folder (GradientBackground, Navbar, Footer, SectionTitle components)
-- `components/sections/` folder (HeroSection component)
-- `lib/types.ts` and `lib/data.ts` files
-
-All active code is in `app/page.tsx` with inline components.
-
-### External Dependencies
-- **DevIcons CDN:** Used for technology icons (https://cdn.jsdelivr.net/gh/devicons/devicon/)
-- **Unsplash:** Used for placeholder images (company logos, project covers)
-
-### Windows-Specific
-This is a Windows development environment (`win32` platform). File paths use Windows format but Next.js handles cross-platform compatibility.
-
-## Common Tasks
-
-### Adding a New Project
-1. Add project object to `projects` array in `app/page.tsx` (lines 141-220)
-2. Add translations in `lib/translations.ts` under both `fr.projectDetails` and `en.projectDetails`
-3. Use consistent `id` naming: "type-name" (e.g., "freelance-myproject")
-4. Ensure all tags exist in other projects or add new ones
-
-### Adding a New Skill Category
-1. Add new object to `skillGroups` array (lines 50-100)
-2. Follow structure: `{ title: "Category", items: [{ name, icon }] }`
-3. Icons should be from DevIcons CDN for consistency
-4. Translation: Add English mapping in Skills TabsContent (lines 793-797)
-
-### Changing Language System
-- Current: Runtime switching via state (client-side only)
-- To add more languages: Update `Language` type in `lib/translations.ts` and add translation objects
-
-### Performance Optimization
-- Consider lazy loading project images if portfolio grows large
-- Project filtering is client-side; optimize if project count exceeds ~50
-- Framer Motion animations can be reduced with `prefers-reduced-motion` media query
+- `README.md` describes the pre-migration single-page portfolio and is out of date — prefer this file.
+- `out/` is a stale `next export` artifact tracked by git; the project no longer uses static export. Don't write to it.
+- `lib/types.ts` / `lib/data.ts` no longer exist on disk; the live types are in `content/types.ts` and `lib/contact-pipeline.ts`.

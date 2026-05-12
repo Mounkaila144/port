@@ -1,30 +1,11 @@
 "use client"
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Github,
-  Globe,
-  Building2,
-  Sparkles,
-  Clock,
-} from "lucide-react";
+import { ArrowUpRight, Github, Globe } from "lucide-react";
 import { translations, type Language } from "@/lib/translations";
-
-interface Project {
-  id: string;
-  title: string;
-  company: string;
-  kind: string;
-  year: string;
-  cover: string;
-  description: string;
-  tags: string[];
-  links: { site: string; repo: string };
-}
+import type { Project } from "@/content/types";
 
 interface ProjectsSectionProps {
   projects: Project[];
@@ -32,329 +13,289 @@ interface ProjectsSectionProps {
   onOpenDialog: (project: Project) => void;
 }
 
-function SectionTitle({ icon: Icon, title, subtitle }: any) {
+const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const projectKeyMap: Record<string, string> = {
+  "entreprise-csf": "entrepriseCsf",
+  "entreprise-staff": "entrepriseStaff",
+  "entreprise-ayki": "entrepriseAyki",
+  "entreprise-ptrniger": "entreprisePtrniger",
+  "entreprise-emmalab": "entrepriseEmmalab",
+  "entreprise-lastuce": "entrepriseLastuce",
+  "entreprise-clinoo": "entrepriseClinoo",
+  "entreprise-jandoo": "entrepriseJandoo",
+  "entreprise-planning": "entreprisePlanning",
+  "entreprise-pointage": "entreprisePointage",
+  "entreprise-scholarship": "entrepriseScholarship",
+  "entreprise-wuroobiz": "entrepriseWuroobiz",
+  "entreprise-guidacenter": "entrepriseGuidacenter",
+  "freelance-softis": "freelanceSoftis",
+  "freelance-nina": "freelanceNina",
+  "personnel-icall": "personnelIcall",
+  "personnel-gestion": "personnelGestion",
+  "personnel-shop": "personnelShop",
+};
+
+function getProjectContent(project: Project, t: any) {
+  const key = projectKeyMap[project.id] || "entrepriseCsf";
+  const data = t.projectDetails?.[key];
+  return {
+    title: data?.title || project.title,
+    description: data?.description || project.description,
+  };
+}
+
+function KindBadge({ kind, t }: { kind: string; t: any }) {
+  const label = kind === "Entreprise" ? t.enterprise : kind === "Freelance" ? t.freelance : t.personal;
+  const colorMap: Record<string, string> = {
+    Entreprise: "border-[#C4F046]/40 bg-[#C4F046]/10 text-[#C4F046]",
+    Freelance: "border-[#FF6B35]/40 bg-[#FF6B35]/10 text-[#FF6B35]",
+    Personnel: "border-white/30 bg-white/5 text-white/80",
+  };
   return (
-    <div className="mb-4 sm:mb-6">
-      <h2 className="flex items-center gap-1.5 sm:gap-2 text-lg sm:text-xl lg:text-2xl font-semibold">
-        <Icon className="h-5 w-5 sm:h-6 sm:w-6" /> {title}
-      </h2>
-      {subtitle && <p className="mt-1 text-sm sm:text-base text-white/70">{subtitle}</p>}
-    </div>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-mono uppercase tracking-wider backdrop-blur-md ${colorMap[kind] || colorMap.Personnel}`}>
+      <span className="h-1 w-1 rounded-full bg-current" />
+      {label}
+    </span>
   );
 }
 
-// Effet tilt léger pour les cartes
-function useTilt(ref: React.RefObject<HTMLDivElement | null>) {
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const handle = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const dx = (x - rect.width / 2) / rect.width;
-      const dy = (y - rect.height / 2) / rect.height;
-      el.style.transform = `rotateX(${(-dy * 4).toFixed(2)}deg) rotateY(${(dx * 6).toFixed(2)}deg)`;
-    };
-    const reset = () => {
-      el.style.transform = "rotateX(0deg) rotateY(0deg)";
-    };
-    el.addEventListener("mousemove", handle);
-    el.addEventListener("mouseleave", reset);
-    return () => {
-      el.removeEventListener("mousemove", handle);
-      el.removeEventListener("mouseleave", reset);
-    };
-  }, [ref]);
-}
-
-function ProjectCard({ project, onOpen, t, language, index }: { project: Project; onOpen: (p: any) => void; t: any; language: Language; index: number }) {
-  const tiltRef = React.useRef<HTMLDivElement>(null);
-  useTilt(tiltRef);
-
-  const getProjectTranslation = (projectId: string) => {
-    const mapping: { [key: string]: string } = {
-      'entreprise-csf': 'entrepriseCsf',
-      'entreprise-staff': 'entrepriseStaff',
-      'entreprise-hydrolink': 'entrepriseHydrolink',
-      'entreprise-ayki': 'entrepriseAyki',
-      'entreprise-ptrniger': 'entreprisePtrniger',
-      'entreprise-school': 'entrepriseSchool',
-      'entreprise-emmalab': 'entrepriseEmmalab',
-      'entreprise-lastuce': 'entrepriseLastuce',
-      'entreprise-guidacenter': 'entrepriseGuidacenter',
-      'freelance-softis': 'freelanceSoftis',
-      'freelance-nina': 'freelanceNina',
-      'personnel-icall': 'personnelIcall',
-      'personnel-gestion': 'personnelGestion',
-      'personnel-shop': 'personnelShop'
-    };
-    return mapping[projectId] || 'entrepriseCsf';
-  };
-
-  const projectKey = getProjectTranslation(project.id);
-  const projectData = (t as any).projectDetails?.[projectKey];
-  const displayTitle = projectData?.title || project.title;
-  const displayDescription = projectData?.description || project.description;
+function FeaturedCard({ project, onOpen, t, index }: { project: Project; onOpen: (p: Project) => void; t: any; index: number }) {
+  const { title, description } = getProjectContent(project, t);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.1,
-        ease: [0.22, 1, 0.36, 1]
-      }}
-      whileHover={{ y: -8 }}
-      className="h-full"
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: index * 0.05, ease: easing }}
+      onClick={() => onOpen(project)}
+      className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] cursor-pointer h-full"
     >
-      <Card className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/8 via-white/5 to-white/0 backdrop-blur-xl shadow-xl hover:shadow-2xl hover:border-white/20 transition-all duration-500 h-full flex flex-col">
-        <div className="flex-1 flex flex-col" ref={tiltRef}>
-          {/* Image avec overlay amélioré */}
-          <div className="relative h-48 sm:h-56 lg:h-60 w-full overflow-hidden">
-            <img
-              src={project.cover}
-              alt={displayTitle}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-
-            {/* Badges redesignés */}
-            <div className="absolute left-3 sm:left-4 top-3 sm:top-4 flex items-center gap-2">
-              <Badge variant="secondary" className="bg-gradient-to-r from-violet-500 to-fuchsia-500 text-white text-xs font-medium px-3 py-1 shadow-lg">
-                {project.kind === "Entreprise" ? t.enterprise : project.kind === "Freelance" ? t.freelance : t.personal}
-              </Badge>
-            </div>
-
-            <div className="absolute right-3 sm:right-4 top-3 sm:top-4">
-              <Badge variant="secondary" className="bg-black/70 backdrop-blur-md text-white text-xs px-3 py-1">
-                <Clock className="mr-1 h-3 w-3" />{project.year}
-              </Badge>
-            </div>
-          </div>
-
-          {/* Contenu de la carte */}
-          <div className="flex-1 flex flex-col p-5 sm:p-6">
-            <CardHeader className="p-0 pb-3">
-              <h3 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-2 group-hover:text-violet-400 transition-colors">
-                <Sparkles className="h-5 w-5 text-violet-400" />
-                {displayTitle}
-              </h3>
-              <div className="mt-2 flex items-center text-sm text-white/60">
-                <Building2 className="mr-2 h-4 w-4" /> {project.company}
-              </div>
-            </CardHeader>
-
-            <CardContent className="p-0 flex-1 flex flex-col">
-              <p className="text-sm text-white/70 leading-relaxed line-clamp-3 mb-4">
-                {displayDescription}
-              </p>
-
-              {/* Tags */}
-              <div className="mt-auto">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.slice(0, 4).map((tag) => (
-                    <Badge
-                      key={tag}
-                      className="bg-white/10 hover:bg-white/20 text-white border border-white/20 text-xs px-3 py-1 transition-all hover:scale-105"
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                  {project.tags.length > 4 && (
-                    <Badge className="bg-white/5 text-white/50 border border-white/10 text-xs px-3 py-1">
-                      +{project.tags.length - 4}
-                    </Badge>
-                  )}
-                </div>
-
-                {/* Boutons d'action */}
-                <div className="flex flex-wrap items-center gap-2">
-                  <Button
-                    size="sm"
-                    onClick={() => onOpen(project)}
-                    className="rounded-xl text-sm h-10 px-4 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 shadow-lg hover:shadow-xl transition-all"
-                  >
-                    {t.viewProject}
-                  </Button>
-                  {project.links.site !== "#" && (
-                    <a href={project.links.site} target="_blank" rel="noreferrer">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="rounded-xl text-sm h-10 px-4 bg-white/10 hover:bg-white/20 border border-white/20"
-                      >
-                        <Globe className="mr-2 h-4 w-4" />{t.site}
-                      </Button>
-                    </a>
-                  )}
-                  {project.links.repo !== "#" && (
-                    <a href={project.links.repo} target="_blank" rel="noreferrer">
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        className="rounded-xl text-sm h-10 px-4 bg-white/10 hover:bg-white/20 border border-white/20"
-                      >
-                        <Github className="mr-2 h-4 w-4" />{t.code}
-                      </Button>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </CardContent>
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-full">
+        <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden">
+          <Image
+            src={project.cover}
+            alt={title}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-[#08080C] via-[#08080C]/30 to-transparent lg:bg-gradient-to-r" />
+          <div className="absolute top-4 left-4 flex items-center gap-2">
+            <KindBadge kind={project.kind} t={t} />
+            <span className="rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-white/80 backdrop-blur-md">
+              {project.year}
+            </span>
           </div>
         </div>
-      </Card>
+
+        <div className="relative flex flex-col justify-between p-6 sm:p-8 lg:p-10">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
+              <span>{language_label("featured", t)}</span>
+              <span className="h-px w-8 bg-[#C4F046]" />
+            </div>
+            <h3 className="font-display text-3xl sm:text-4xl lg:text-5xl text-white leading-[1] tracking-tight">
+              {title}
+            </h3>
+            <p className="text-sm sm:text-base text-white/60 leading-relaxed line-clamp-3">
+              {description}
+            </p>
+            <div className="flex flex-wrap gap-2 pt-1">
+              {project.tags.slice(0, 4).map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/70"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-6 flex items-center justify-between gap-3">
+            <span className="font-mono text-xs text-white/50">{project.company}</span>
+            <div className="flex items-center gap-2">
+              {project.links.site !== "#" && (
+                <a
+                  href={project.links.site}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur-md transition-all duration-300 hover:border-[#C4F046]/40 hover:bg-[#C4F046]/10 hover:text-[#C4F046]"
+                  aria-label="Visit site"
+                >
+                  <Globe className="h-4 w-4" />
+                </a>
+              )}
+              {project.links.repo !== "#" && (
+                <a
+                  href={project.links.repo}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white/70 backdrop-blur-md transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white"
+                  aria-label="Repo"
+                >
+                  <Github className="h-4 w-4" />
+                </a>
+              )}
+              <span className="flex h-10 items-center gap-2 rounded-full bg-[#C4F046] px-5 text-xs font-semibold text-[#08080C] transition-shadow duration-500 group-hover:shadow-[0_0_30px_-5px_rgba(196,240,70,0.7)]">
+                {t.viewProject}
+                <ArrowUpRight className="h-3.5 w-3.5" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function language_label(key: string, t: any) {
+  return t[key] || (key === "featured" ? "Featured" : key);
+}
+
+function ProjectCard({ project, onOpen, t, index }: { project: Project; onOpen: (p: Project) => void; t: any; index: number }) {
+  const { title, description } = getProjectContent(project, t);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: index * 0.04, ease: easing }}
+      onClick={() => onOpen(project)}
+      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/[0.02] backdrop-blur-md cursor-pointer transition-all duration-500 hover:border-[#C4F046]/30 hover:bg-white/[0.04]"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden">
+        <Image
+          src={project.cover}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1000ms] ease-out group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-transparent to-transparent" />
+        <div className="absolute top-3 left-3 flex items-center gap-2">
+          <KindBadge kind={project.kind} t={t} />
+        </div>
+        <div className="absolute top-3 right-3 rounded-full border border-white/20 bg-black/40 px-2.5 py-1 text-[10px] font-mono text-white/80 backdrop-blur-md">
+          {project.year}
+        </div>
+
+        {/* Reveal arrow */}
+        <div className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-[#C4F046] text-[#08080C] opacity-0 translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+          <ArrowUpRight className="h-4 w-4" />
+        </div>
+      </div>
+
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="flex items-baseline gap-3">
+          <span className="font-mono text-[10px] text-white/30">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3 className="font-display text-xl sm:text-2xl text-white tracking-tight leading-tight">
+            {title}
+          </h3>
+        </div>
+        <p className="mt-3 text-sm text-white/60 leading-relaxed line-clamp-2">
+          {description}
+        </p>
+        <div className="mt-auto pt-4 flex flex-wrap items-center gap-1.5">
+          {project.tags.slice(0, 3).map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[11px] text-white/60"
+            >
+              {tag}
+            </span>
+          ))}
+          {project.tags.length > 3 && (
+            <span className="text-[11px] text-white/40">+{project.tags.length - 3}</span>
+          )}
+        </div>
+      </div>
     </motion.div>
   );
 }
 
 export function ProjectsSection({ projects, language, onOpenDialog }: ProjectsSectionProps) {
   const t = translations[language];
+  const [featured, ...rest] = projects;
 
   return (
-    <div className="space-y-8">
-      {/* Section Header avec style amélioré */}
-      <div className="text-center space-y-3">
+    <section className="space-y-10 sm:space-y-14">
+      {/* Header */}
+      <div className="space-y-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
+          className="flex items-center gap-3 font-mono text-xs uppercase tracking-[0.25em] text-white/50"
         >
-          <h2 className="flex items-center justify-center gap-3 text-3xl sm:text-4xl lg:text-5xl font-bold">
-            <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 text-violet-400" />
-            <span className="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-              {t.projectsTitle}
-            </span>
-          </h2>
+          <span className="h-px w-12 bg-[#C4F046]" />
+          <span>03 / {language === "fr" ? "Sélection" : "Selection"}</span>
         </motion.div>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-white/60 text-base sm:text-lg max-w-2xl mx-auto"
-        >
-          {t.projectsSubtitle}
-        </motion.p>
+
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: easing }}
+            className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[0.95] tracking-tight max-w-3xl"
+          >
+            <span className="text-white">{language === "fr" ? "Travaux" : "Selected"}</span>{" "}
+            <span className="text-mask-lime italic">{language === "fr" ? "récents" : "works"}</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: easing }}
+            className="max-w-md text-base text-white/60"
+          >
+            {t.projectsSubtitle}
+          </motion.p>
+        </div>
       </div>
 
-      {/* Grille de projets avec espacement amélioré */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {projects.map((project, index) => (
+      {/* Featured */}
+      {featured && (
+        <FeaturedCard project={featured} onOpen={onOpenDialog} t={t} index={0} />
+      )}
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+        {rest.map((project, idx) => (
           <ProjectCard
             key={project.id}
             project={project}
             onOpen={onOpenDialog}
             t={t}
-            language={language}
-            index={index}
+            index={idx}
           />
         ))}
       </div>
 
-      {/* Section "Plus de projets" avec design amélioré */}
+      {/* Footer counter */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="mt-12 relative"
+        transition={{ duration: 0.6, delay: 0.5 }}
+        className="flex flex-col sm:flex-row items-center justify-between gap-6 rounded-3xl border border-white/10 bg-white/[0.02] p-8 sm:p-10 backdrop-blur-md"
       >
-        {/* Carte avec gradient et glassmorphism */}
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-pink-500/10 backdrop-blur-xl p-8 sm:p-10 lg:p-12">
-          {/* Effets de fond animés */}
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-              className="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-violet-500/20 blur-3xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 8, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute -bottom-20 -left-20 h-60 w-60 rounded-full bg-fuchsia-500/20 blur-3xl"
-              animate={{ scale: [1.2, 1, 1.2], opacity: [0.5, 0.3, 0.5] }}
-              transition={{ duration: 8, repeat: Infinity, delay: 1 }}
-            />
+        <div className="space-y-2 text-center sm:text-left">
+          <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50">
+            {t.moreProjectsTitle}
           </div>
-
-          {/* Contenu */}
-          <div className="relative z-10 text-center space-y-6">
-            {/* Icône centrale */}
-            <motion.div
-              className="inline-flex items-center justify-center"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4, type: "spring" }}
-            >
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-2xl blur-xl opacity-50" />
-                <div className="relative bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-2xl p-4">
-                  <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 text-white" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Titre */}
-            <div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent mb-3">
-                {t.moreProjectsTitle}
-              </h3>
-              <p className="text-white/70 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
-                {t.moreProjectsDescription}
-              </p>
-            </div>
-
-            {/* Compteurs avec design moderne */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-12 pt-4">
-              {/* Projets affichés */}
-              <div className="flex flex-col items-center space-y-2">
-                <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-violet-400 animate-pulse" />
-                  <span className="text-sm sm:text-base text-white/60 uppercase tracking-wider font-medium">
-                    {t.projectsShown}
-                  </span>
-                </div>
-                <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
-                  {projects.length}
-                </div>
-              </div>
-
-              {/* Séparateur */}
-              <div className="hidden sm:block h-16 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent" />
-              <div className="sm:hidden w-16 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-              {/* Total projets */}
-              <div className="flex flex-col items-center space-y-2">
-                <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-fuchsia-400 animate-pulse" />
-                  <span className="text-sm sm:text-base text-white/60 uppercase tracking-wider font-medium">
-                    {t.totalProjects}
-                  </span>
-                </div>
-                <div className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-fuchsia-400 to-pink-400 bg-clip-text text-transparent">
-                  98+
-                </div>
-              </div>
-            </div>
-
-            {/* Barre de progression visuelle */}
-            <div className="pt-6">
-              <div className="max-w-md mx-auto">
-                <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-violet-500 via-fuchsia-500 to-pink-500 rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${(projects.length / 98) * 100}%` }}
-                    transition={{ duration: 1.5, delay: 0.6, ease: "easeOut" }}
-                  />
-                </div>
-                <p className="text-xs text-white/40 mt-2">
-                  {Math.round((projects.length / 98) * 100)}% {t.portfolioShown}
-                </p>
-              </div>
-            </div>
+          <div className="font-display text-2xl sm:text-3xl text-white max-w-md">
+            {t.moreProjectsDescription}
           </div>
         </div>
+        <div className="flex items-baseline gap-3 shrink-0">
+          <span className="font-display text-6xl sm:text-7xl text-mask-lime">{projects.length}</span>
+          <span className="font-mono text-sm text-white/50">/ 98+</span>
+        </div>
       </motion.div>
-    </div>
+    </section>
   );
 }

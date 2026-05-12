@@ -1,0 +1,305 @@
+{
+  "profile": "Profil",
+  "skills": "Compétences",
+  "projects": "Projets",
+  "companies": "Entreprises",
+  "contact": "Contact",
+  "email": "Email",
+  "fullstackDeveloper": "Fullstack Developer",
+  "heroDescription": "Fullstack Developer avec 5 ans d'expérience dans le développement web et applicatif. Mes solides compétences dans ce domaine m'ont permis d'obtenir d'excellents résultats dans mes projets.",
+  "contactMe": "Me contacter",
+  "learnMore": "En savoir plus",
+  "about": "À propos",
+  "location": "Niamey, Niger",
+  "joinMe": "Me joindre",
+  "github": "GitHub",
+  "skillsTitle": "Langages & Outils",
+  "skillsSubtitle": "Sélection des technologies que je maîtrise",
+  "languages": "Langages",
+  "frameworks": "Frameworks",
+  "uiDesign": "UI/Design",
+  "databases": "Databases",
+  "tools": "Outils",
+  "projectsTitle": "Projets",
+  "projectsSubtitle": "Images, descriptions, stacks et liens",
+  "search": "Rechercher...",
+  "all": "Tous",
+  "enterprise": "Entreprise",
+  "freelance": "Freelance",
+  "personal": "Personnel",
+  "viewProject": "Voir",
+  "site": "Site",
+  "code": "Code",
+  "viewSite": "Voir le site",
+  "viewCode": "Voir le code",
+  "moreProjectsTitle": "Et ce n'est pas tout !",
+  "moreProjectsDescription": "J'ai réalisé plus de 98 projets au total. Cette sélection représente mes réalisations les plus récentes et les plus significatives.",
+  "projectsShown": "Projets affichés",
+  "totalProjects": "Total de projets",
+  "portfolioShown": "de mon portfolio affiché",
+  "companiesTitle": "Entreprises & Collaborations",
+  "companiesSubtitle": "Clients et partenaires avec lesquels j'ai travaillé",
+  "navigation": "Navigation",
+  "social": "Réseaux",
+  "availableFor": "Disponible pour missions freelance & contrats",
+  "copyright": "Fullstack Developer",
+  "switchToEnglish": "Passer en anglais",
+  "switchToFrench": "Passer en français",
+  "notFoundTitle": "Page introuvable",
+  "notFoundDescription": "La page que vous cherchez n'existe pas ou a été déplacée.",
+  "notFoundCta": "Retour à l'accueil",
+  "errorTitle": "Une erreur est survenue",
+  "errorDescription": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+  "errorRetry": "Réessayer",
+  "brand": {
+    "name": "PTR Niger",
+    "tagline": "Ingénierie logicielle senior pour les équipes produit qui livrent",
+    "agencyEmail": "mail@ptrniger.com",
+    "domain": "agency.ptrniger.com"
+  },
+  "nav": {
+    "home": "Accueil",
+    "work": "Réalisations",
+    "services": "Services",
+    "about": "À propos",
+    "contact": "Contact",
+    "primaryCta": "Réserver un appel découverte 20 min",
+    "menu": "Menu",
+    "close": "Fermer"
+  },
+  "hero": {
+    "h1Lead": "Ingénierie logicielle senior",
+    "h1Tail": "pour les équipes produit qui livrent",
+    "subtitle": "PTR Niger conçoit et exploite des plateformes Laravel, Next.js et TypeScript en UE, au Japon et en Afrique de l'Ouest depuis 2017. Livraison bilingue EN/FR, hébergement de données en UE, aucune sous-traitance offshore.",
+    "trustStrip": "Choisi par des équipes à Niamey, Tokyo, Paris et Bruxelles",
+    "timezoneBadge": "Heures de bureau 10h–19h WAT (= 11h–20h CET)"
+  },
+  "featuredCaseStudies": {
+    "title": "Études de cas sélectionnées",
+    "subtitle": "Des systèmes réels que nous avons conçus, livrés et que nous exploitons aujourd'hui.",
+    "viewAll": "Voir toutes les réalisations"
+  },
+  "servicesOverview": {
+    "title": "Trois formats d'engagement",
+    "subtitle": "Maintenance, audit, build — choisissez la surface qui correspond à votre étape.",
+    "viewAll": "Comparer les forfaits"
+  },
+  "secondaryCta": {
+    "title": "Un système à confier à une main expérimentée ?",
+    "subtitle": "Réponse en moins de 4 heures ouvrées. Hébergement UE par défaut.",
+    "primary": "Réserver un appel découverte",
+    "secondary": "Nous écrire à la place"
+  },
+  "services": {
+    "pageTitle": "Services & formats d'engagement",
+    "pageSubtitle": "Choisissez le forfait qui correspond à votre étape. Hébergement UE par défaut. Tarifs en EUR uniquement — le TJM est fixé en cadrage, pas sur cette page.",
+    "euDataResidency": "Tous les systèmes clients que nous exploitons ou construisons tournent par défaut dans des datacenters de juridiction UE (Francfort, Paris, Amsterdam). Hébergement régional sur mesure sur demande.",
+    "packages": {
+      "maintenance": {
+        "name": "Maintenance",
+        "pitch": "Maintenir une plateforme existante en vie, sécurisée et qui s'améliore en continu.",
+        "format": "Régie, cadence mensuelle",
+        "duration": "En continu — mois par mois, préavis 30 jours",
+        "price": "À partir de 1 500 € / mois",
+        "deliverables": [
+          "Patchs de sécurité, mises à jour de dépendances, supervision uptime",
+          "Triage des bugs et petites évolutions dans le forfait",
+          "Rapport de santé mensuel (perf, erreurs, dérive de dépendances)",
+          "Ligne directe avec l'ingénieur sur Telegram ou Slack"
+        ],
+        "fitFor": "Équipes avec un produit en production mais sans ingénieur interne pour le surveiller."
+      },
+      "audit": {
+        "name": "Audit",
+        "pitch": "Revue technique indépendante d'un système existant avant une embauche, une levée ou une refonte.",
+        "format": "Sprint à périmètre fixe",
+        "duration": "5 à 10 jours ouvrés",
+        "price": "De 3 000 € à 6 000 €",
+        "deliverables": [
+          "Évaluation architecture, perf, sécurité et opérabilité",
+          "Registre de risques priorisé par impact et effort",
+          "Feuille de route de remédiation avec estimations",
+          "Restitution 60 min avec les parties prenantes"
+        ],
+        "fitFor": "Fondateurs, CTO et investisseurs qui ont besoin d'un second avis honnête."
+      },
+      "build": {
+        "name": "Build",
+        "pitch": "Concevoir, construire et lancer une nouvelle surface produit de bout en bout.",
+        "format": "Projet à périmètre fixe, facturation par jalons",
+        "duration": "À partir de 4 semaines",
+        "price": "À partir de 12 000 €",
+        "deliverables": [
+          "Cadrage, conception technique et plan de jalons",
+          "Implémentation en stack Laravel / Next.js / TypeScript",
+          "Support bilingue EN/FR, hébergement UE, CI/CD",
+          "30 jours de maintenance post-livraison inclus"
+        ],
+        "fitFor": "Entreprises qui lancent un nouveau produit ou refondent un legacy."
+      }
+    },
+    "engageCta": "Discuter de cet engagement",
+    "partner": {
+      "title": "Devenez partenaire",
+      "subtitle": "Capacité de débordement pour agences boutique",
+      "body": "Si vous êtes une agence de 5 à 20 personnes à Paris, Bruxelles ou Tokyo et que votre banc de delivery sature, nous opérons des squads PTR dédiés sous votre marque. Contrats UE, IP au client, grille tarifaire transparente.",
+      "cta": "Parlons d'un partenariat"
+    }
+  },
+  "about": {
+    "pageTitle": "PTR Niger — neuf années à livrer du logiciel qui tourne",
+    "founded": "Fondé à Niamey, Niger, en 2017.",
+    "intro": "Nous sommes un studio logiciel senior de 10+ ingénieurs ayant livré des plateformes Laravel, Next.js, Vue et Symfony en logistique, EdTech, sport-tech, immobilier et recrutement, pour des clients au Niger, en France, en Belgique et au Japon.",
+    "differentiator": "Livraison bilingue EN+FR, hébergement UE par défaut, et une seule composition d'engagement : des seniors qui font le travail, aucune sous-traitance offshore.",
+    "teamPhotoAlt": "L'équipe PTR Niger à Niamey",
+    "compositionTitle": "Comment nous travaillons",
+    "composition": "Chaque engagement tourne avec un tech lead senior et une contrepartie delivery. Nous ne publions pas de noms individuels sur le site par défaut — ce sont les livrables, les métriques et les contrats qui parlent pour l'équipe.",
+    "sectorsTitle": "Secteurs que nous connaissons",
+    "sectors": [
+      "Logistique & commerce transfrontalier",
+      "EdTech / gestion scolaire",
+      "Sport-tech & clubs avec adhérents",
+      "Immobilier & marketplaces verticales",
+      "RH-tech & plateformes de recrutement"
+    ],
+    "stackTitle": "Stack validée",
+    "stackBlurb": "TypeScript (patterns avancés), Laravel + PHPUnit, Symfony, Next.js, React, Vue, Node.js, PostgreSQL, MySQL, Redis, REST + GraphQL, Stripe, Vercel + AWS + DigitalOcean. Stack de tests : Jest, Vitest, Playwright. APIs IA (Claude / OpenAI) pour des fonctionnalités en production.",
+    "euDataResidency": "Les données clients et systèmes opérés tournent sur infrastructure UE par défaut."
+  },
+  "work": {
+    "pageTitle": "Réalisations",
+    "pageSubtitle": "Douze projets validés par PTR en UE, JP et Afrique de l'Ouest. Filtrez par secteur, région ou type.",
+    "filterSector": "Secteur",
+    "filterRegion": "Région",
+    "filterType": "Type",
+    "filterAll": "Tous",
+    "search": "Chercher projets, tags, secteurs…",
+    "empty": "Aucun projet ne correspond à ces filtres."
+  },
+  "contact": {
+    "pageTitle": "Cadrons votre engagement",
+    "pageSubtitle": "Réponse en moins de 4 heures ouvrées. Hébergement UE par défaut.",
+    "intakeTitle": "Brief projet",
+    "fields": {
+      "name": "Votre nom",
+      "company": "Société",
+      "email": "Email professionnel",
+      "type": "Type de projet",
+      "brief": "Que cherchez-vous à construire ?",
+      "source": "Comment nous avez-vous connus ?",
+      "consent": "J'accepte la politique de confidentialité de PTR Niger.",
+      "submit": "Envoyer le brief"
+    },
+    "types": {
+      "maintenance": "Régie de maintenance",
+      "audit": "Audit",
+      "build": "Build / nouveau produit",
+      "partnership": "Partenariat agence",
+      "other": "Autre"
+    },
+    "ack": {
+      "title": "Brief reçu",
+      "body": "Nous avons enregistré votre brief et répondrons sous 4 heures ouvrées (lun–ven, 10h–19h WAT)."
+    },
+    "errors": {
+      "generic": "Une erreur s'est produite. Merci de nous écrire par email à la place.",
+      "rateLimit": "Trop d'envois depuis ce réseau. Réessayez dans une heure ou écrivez-nous directement.",
+      "validation": "Merci de vérifier les champs surlignés."
+    },
+    "fallbackEmailLabel": "Ou écrivez-nous simplement :"
+  },
+  "footer": {
+    "tagline": "Ingénierie logicielle senior · Niamey · depuis 2017",
+    "navigation": "Navigation",
+    "legal": "Mentions légales",
+    "privacy": "Confidentialité",
+    "imprint": "Mentions",
+    "rights": "Tous droits réservés."
+  },
+  "cookies": {
+    "title": "Nous respectons votre vie privée",
+    "body": "Nous utilisons Umami (analytics auto-hébergé, sans cookies de tracking) pour compter les pages vues anonymes. Calendly et le formulaire de contact n'écrivent des cookies courts que lorsque vous interagissez avec eux. Rien n'est partagé avec des régies publicitaires.",
+    "accept": "D'accord",
+    "more": "Lire la politique de confidentialité"
+  },
+  "projectDetails": {
+    "entrepriseCsf": {
+      "title": "Commande Sans Frontière",
+      "description": "Plateforme de transport multimodal (aérien, maritime et routier) offrant des solutions sur mesure pour le commerce international. Plus de 5 ans d'expérience avec livraison rapide et sécurisée depuis la Chine."
+    },
+    "entrepriseStaff": {
+      "title": "NigerDev Staff",
+      "description": "Application complète de gestion d'entreprise intégrant la gestion des employés, le suivi des stagiaires et l'administration des salaires. Solution centralisée pour optimiser les processus RH."
+    },
+    "entrepriseAyki": {
+      "title": "AYKI Emploi",
+      "description": "Plateforme de recrutement qui connecte les talents aux opportunités. AYKI simplifie le processus en mettant directement en relation les meilleurs candidats avec les entreprises qui recherchent leurs compétences."
+    },
+    "entreprisePtrniger": {
+      "title": "PTR Niger E-Learning",
+      "description": "Plateforme e-learning proposant des formations en entrepreneuriat, marketing digital, informatique et plus. Les élèves s'inscrivent et apprennent directement en ligne avec un suivi personnalisé."
+    },
+    "entrepriseEmmalab": {
+      "title": "EMMA-Lab",
+      "description": "Laboratoire d'innovation qui accompagne les entrepreneurs et les organisations dans leur transformation digitale et leurs projets innovants. Innover ensemble pour construire l'avenir."
+    },
+    "entrepriseLastuce": {
+      "title": "L'Astuce",
+      "description": "Communauté d'astuces permettant de découvrir les meilleures techniques avec une communauté passionnée. Conseils pratiques pour améliorer le quotidien : voir les épisodes et proposer ses propres astuces."
+    },
+    "entrepriseClinoo": {
+      "title": "Clinoo+",
+      "description": "Solution médicale tout-en-un pour cabinets et cliniques : dossier patient électronique, prise de rendez-vous, facturation, documentation clinique et analytique. Plateforme conforme RGPD, déjà adoptée par plus de 1 000 praticiens."
+    },
+    "entrepriseJandoo": {
+      "title": "Jandoo",
+      "description": "Plateforme intelligente de gestion scolaire dédiée à l'enseignement supérieur LMD : structure académique, inscriptions, emplois du temps, absences, notes, scolarité, paie et documents officiels en 9 modules intégrés."
+    },
+    "entreprisePlanning": {
+      "title": "Smart Planner",
+      "description": "Planificateur boosté à l'IA qui génère automatiquement un emploi du temps sur 14 jours en respectant priorités, contraintes horaires et multi-projets. Suivi par créneaux horaires, alertes de conflits et rythme de travail personnalisable."
+    },
+    "entreprisePointage": {
+      "title": "PointageAI",
+      "description": "Système de pointage intelligent par reconnaissance faciale pour l'entreprise. Suivi en temps réel des présences, rapports et statistiques détaillés, et application mobile pour les employés."
+    },
+    "entrepriseScholarship": {
+      "title": "ScholarshipNiger",
+      "description": "Plateforme dédiée aux étudiants nigériens à la recherche de bourses d'études à l'étranger : 500+ bourses actives, 50+ pays partenaires et accompagnement complet pour postuler aux opportunités internationales."
+    },
+    "entrepriseWuroobiz": {
+      "title": "Wuroobiz",
+      "description": "Solution cloud tout-en-un de gestion commerciale pour les PME africaines : point de vente, gestion des stocks, comptabilité, RH, plus de 40 rapports avancés et agent IA WhatsApp intégré."
+    },
+    "entrepriseGuidacenter": {
+      "title": "GuidaCenter",
+      "description": "Plateforme immobilière moderne qui simplifie l'achat, la vente et la location de biens au Niger. Interface intuitive pour faciliter les transactions immobilières."
+    },
+    "freelanceSoftis": {
+      "title": "Softis Pilates",
+      "description": "Plateforme complète pour un club sportif de Pilates au Japon. Gestion des cours, réservations, membres et planning pour une expérience utilisateur optimale."
+    },
+    "freelanceNina": {
+      "title": "Nina Massage & Kiné",
+      "description": "Centre de massage professionnel à Niamey proposant massage et kinésithérapie. Services premium : drainage lymphatique, massage 4 mains, soins esthétiques et bien plus."
+    },
+    "personnelIcall": {
+      "title": "iCall CRM",
+      "description": "Suite CRM complète avec de très nombreuses fonctionnalités : gestion des contacts, suivi des opportunités, automatisation des processus et rapports analytiques. Solution robuste pour la gestion de la relation client."
+    },
+    "personnelGestion": {
+      "title": "Gestion Boutique",
+      "description": "Application de gestion de boutique intégrant la gestion des stocks, la comptabilité, le suivi des revenus et les opérations commerciales. Interface simple pour une gestion efficace au quotidien."
+    },
+    "personnelShop": {
+      "title": "Shop POS",
+      "description": "Application de gestion commerciale complète : fournisseurs, comptabilité, achats, QR codes et système POS pour des ventes instantanées. Solution tout-en-un pour la gestion de points de vente."
+    }
+  },
+  "companyDescriptions": {
+    "freelance": "Réalisation de projets web et mobiles sur mesure, gestion complète de projets, support technique et relation client.",
+    "icall": "Gestion des mises à jour et correctifs logiciels, formation des utilisateurs, analyse des besoins clients et propositions d'améliorations.",
+    "ptrNiger": "Création de sites web responsives et optimisés SEO avec React, conception d'interfaces utilisateurs attractives et de maquettes.",
+    "idevNiger": "Réalisation de projets innovants et technologiques, conception d'applications, collaboration avec des équipes pluridisciplinaires."
+  }
+}

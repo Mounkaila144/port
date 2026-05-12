@@ -1,12 +1,11 @@
 "use client"
 
 import React from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Mail, Phone, Github } from "lucide-react";
+import { MapPin, Mail, Phone, Github, ArrowUpRight, Sparkles } from "lucide-react";
 import { translations, type Language } from "@/lib/translations";
+import { MagneticButton } from "@/components/shared/MagneticButton";
 
 interface ProfileSectionProps {
   profile: {
@@ -22,153 +21,203 @@ interface ProfileSectionProps {
   language: Language;
 }
 
+const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+function WordReveal({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
+  const words = text.split(" ");
+  return (
+    <span className={className}>
+      {words.map((w, i) => (
+        <span key={i} className="inline-block overflow-hidden align-bottom mr-[0.25em]">
+          <motion.span
+            className="inline-block"
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.9, delay: delay + i * 0.06, ease: easing }}
+          >
+            {w}
+          </motion.span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export function ProfileSection({ profile, language }: ProfileSectionProps) {
   const t = translations[language];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <Card className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.07] via-white/[0.03] to-transparent backdrop-blur-2xl shadow-2xl">
-        {/* Gradient décoratif */}
-        <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-fuchsia-500/5 to-transparent pointer-events-none" />
+    <section className="relative pt-4 sm:pt-8 lg:pt-12">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        {/* Left column — Massive headline */}
+        <div className="lg:col-span-8 space-y-6 sm:space-y-8">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-3 text-xs sm:text-sm font-mono uppercase tracking-[0.2em] text-white/50"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#C4F046] opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#C4F046]" />
+            </span>
+            <span>{language === "fr" ? "Disponible pour de nouveaux projets" : "Available for new projects"}</span>
+          </motion.div>
 
-        <CardContent className="relative p-6 sm:p-8 lg:p-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[280px,1fr] gap-6 sm:gap-8 lg:gap-10 items-start">
-            {/* Photo de profil avec effets */}
-            <motion.div
-              className="relative mx-auto lg:mx-0"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <div className="relative group">
-                {/* Cercle lumineux animé derrière la photo */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-cyan-500 rounded-full opacity-75 blur-2xl group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+          <h1 className="font-display text-[14vw] sm:text-[10vw] lg:text-[8.5vw] xl:text-[7.5vw] leading-[0.9] tracking-[-0.04em] font-bold">
+            <WordReveal text={profile.name.split(" ")[0]} className="block text-white" />
+            <WordReveal text={profile.name.split(" ").slice(1).join(" ")} className="block text-mask-lime" delay={0.15} />
+          </h1>
 
-                {/* Cadre de la photo */}
-                <div className="relative h-[240px] w-[240px] sm:h-[260px] sm:w-[260px] lg:h-[280px] lg:w-[280px]">
-                  <div className="absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-cyan-500 p-1">
-                    <div className="h-full w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-black/20 backdrop-blur-sm">
-                      <img
-                        src={profile.photo}
-                        alt={profile.name}
-                        className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
-                  </div>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6, ease: easing }}
+            className="flex flex-wrap items-center gap-2 sm:gap-3"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-mono backdrop-blur-md">
+              <Sparkles className="h-3.5 w-3.5 text-[#C4F046]" />
+              {t.fullstackDeveloper}
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-mono text-white/70 backdrop-blur-md">
+              <MapPin className="h-3.5 w-3.5" />
+              {profile.location}
+            </span>
+          </motion.div>
 
-                {/* Badge de statut */}
-                <motion.div
-                  className="absolute -bottom-2 -right-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full shadow-lg border-2 border-white/20"
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <span className="text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5">
-                    <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
-                    {language === 'fr' ? 'Disponible' : 'Available'}
-                  </span>
-                </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7, ease: easing }}
+            className="max-w-2xl text-base sm:text-lg lg:text-xl leading-relaxed text-white/70"
+          >
+            {t.heroDescription}
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.85, ease: easing }}
+            className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2"
+          >
+            <MagneticButton>
+              <a
+                href="https://wa.me/227979781199"
+                target="_blank"
+                rel="noreferrer"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[#C4F046] px-7 py-4 text-sm font-semibold text-[#08080C] transition-shadow duration-500 hover:shadow-[0_0_50px_-10px_rgba(196,240,70,0.7)]"
+              >
+                <span className="relative z-10">{t.contactMe}</span>
+                <ArrowUpRight className="relative z-10 h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <span className="absolute inset-0 -translate-x-full bg-white/30 transition-transform duration-700 group-hover:translate-x-0" />
+              </a>
+            </MagneticButton>
+
+            <MagneticButton>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-7 py-4 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/10"
+              >
+                <Github className="h-4 w-4" />
+                {t.github}
+              </a>
+            </MagneticButton>
+          </motion.div>
+        </div>
+
+        {/* Right column — Photo + stats */}
+        <div className="lg:col-span-4 space-y-4 sm:space-y-5">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.4, ease: easing }}
+            className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/10"
+          >
+            <Image
+              src={profile.photo}
+              alt={profile.name}
+              fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              priority
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-out hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#08080C] via-transparent to-transparent" />
+
+            <div className="absolute left-4 right-4 bottom-4 flex items-end justify-between">
+              <div className="space-y-1">
+                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">2026</div>
+                <div className="font-display text-2xl text-white">{profile.role}</div>
               </div>
-            </motion.div>
-
-            {/* Informations du profil */}
-            <motion.div
-              className="space-y-5 sm:space-y-6"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              {/* En-tête */}
-              <div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white via-violet-200 to-fuchsia-200 bg-clip-text text-transparent mb-2">
-                  {profile.name}
-                </h2>
-                <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-3">
-                  <Badge className="bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-violet-200 border border-violet-500/30 text-sm px-3 py-1">
-                    {t.fullstackDeveloper}
-                  </Badge>
-                  <span className="text-white/60 text-sm flex items-center gap-1.5">
-                    <span className="w-1 h-1 bg-white/60 rounded-full" />
-                    {t.location}
-                  </span>
-                </div>
+              <div className="rounded-full border border-[#C4F046]/40 bg-[#C4F046]/10 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-[#C4F046] backdrop-blur-md">
+                v5.0
               </div>
+            </div>
 
-              {/* Description */}
-              <p className="text-sm sm:text-base lg:text-lg text-white/80 leading-relaxed">
-                {t.heroDescription}
-              </p>
+            {/* Decorative corner ticks */}
+            <div className="absolute top-3 left-3 h-3 w-3 border-l border-t border-white/40" />
+            <div className="absolute top-3 right-3 h-3 w-3 border-r border-t border-white/40" />
+            <div className="absolute bottom-3 left-3 h-3 w-3 border-l border-b border-white/40" />
+            <div className="absolute bottom-3 right-3 h-3 w-3 border-r border-b border-white/40" />
+          </motion.div>
 
-              {/* Statistiques rapides */}
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 py-4">
-                <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">5+</div>
-                  <div className="text-xs sm:text-sm text-white/60 mt-1">{language === 'fr' ? 'Années' : 'Years'}</div>
+          {/* Stats grid */}
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            {[
+              { value: "5+", label: language === "fr" ? "Années" : "Years" },
+              { value: "98+", label: language === "fr" ? "Projets" : "Projects" },
+              { value: "30+", label: language === "fr" ? "Stack" : "Stack" },
+            ].map((stat, i) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.7 + i * 0.1, ease: easing }}
+                className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-3 sm:p-4 backdrop-blur-md transition-colors hover:border-[#C4F046]/30 hover:bg-white/[0.06]"
+              >
+                <div className="font-display text-2xl sm:text-3xl text-white group-hover:text-[#C4F046] transition-colors">
+                  {stat.value}
                 </div>
-                <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">98+</div>
-                  <div className="text-xs sm:text-sm text-white/60 mt-1">{language === 'fr' ? 'Projets' : 'Projects'}</div>
+                <div className="font-mono text-[10px] uppercase tracking-wider text-white/50 mt-1">
+                  {stat.label}
                 </div>
-                <div className="text-center p-3 sm:p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                  <div className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-emerald-400 to-lime-400 bg-clip-text text-transparent">10+</div>
-                  <div className="text-xs sm:text-sm text-white/60 mt-1">{language === 'fr' ? 'Technologies' : 'Technologies'}</div>
-                </div>
-              </div>
-
-              {/* Informations de contact stylisées */}
-              <div className="space-y-3">
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-violet-500/50 transition-all duration-300"
-                >
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 group-hover:from-violet-500/30 group-hover:to-fuchsia-500/30 transition-colors">
-                    <Mail className="h-4 w-4 text-violet-300" />
-                  </div>
-                  <span className="text-sm sm:text-base text-white/80 group-hover:text-white transition-colors">{profile.email}</span>
-                </a>
-                <a
-                  href={`tel:${profile.phone}`}
-                  className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-cyan-500/50 transition-all duration-300"
-                >
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-cyan-500/20 to-teal-500/20 group-hover:from-cyan-500/30 group-hover:to-teal-500/30 transition-colors">
-                    <Phone className="h-4 w-4 text-cyan-300" />
-                  </div>
-                  <span className="text-sm sm:text-base text-white/80 group-hover:text-white transition-colors">{profile.phone}</span>
-                </a>
-                <a
-                  href={profile.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-fuchsia-500/50 transition-all duration-300"
-                >
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-fuchsia-500/20 to-pink-500/20 group-hover:from-fuchsia-500/30 group-hover:to-pink-500/30 transition-colors">
-                    <Github className="h-4 w-4 text-fuchsia-300" />
-                  </div>
-                  <span className="text-sm sm:text-base text-white/80 group-hover:text-white transition-colors">github.com/mounkaila144</span>
-                </a>
-              </div>
-
-              {/* Boutons d'action */}
-              <div className="flex flex-wrap gap-3 sm:gap-4 pt-2">
-                <a href="https://wa.me/227979781199" target="_blank" rel="noreferrer" className="flex-1 sm:flex-none">
-                  <Button className="w-full rounded-xl text-sm sm:text-base h-11 sm:h-12 px-6 sm:px-8 bg-gradient-to-r from-violet-500 via-fuchsia-500 to-violet-500 hover:from-violet-600 hover:via-fuchsia-600 hover:to-violet-600 shadow-lg shadow-violet-500/30 hover:shadow-violet-500/50 transition-all duration-300 font-semibold">
-                    <Mail className="mr-2 h-4 w-4" />{t.contactMe}
-                  </Button>
-                </a>
-                <a href={profile.github} target="_blank" rel="noreferrer" className="flex-1 sm:flex-none">
-                  <Button variant="outline" className="w-full rounded-xl text-sm sm:text-base h-11 sm:h-12 px-6 sm:px-8 border-white/20 hover:bg-white/10 hover:border-white/30 transition-all duration-300 font-semibold">
-                    <Github className="mr-2 h-4 w-4" />{t.github}
-                  </Button>
-                </a>
-              </div>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
-        </CardContent>
-      </Card>
-    </motion.div>
+        </div>
+      </div>
+
+      {/* Contact strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1, ease: easing }}
+        className="mt-12 sm:mt-16 lg:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-3"
+      >
+        {[
+          { icon: Mail, label: profile.email, href: `mailto:${profile.email}` },
+          { icon: Phone, label: profile.phone, href: `tel:${profile.phone}` },
+          { icon: Github, label: "github.com/mounkaila144", href: profile.github },
+        ].map((c, i) => (
+          <a
+            key={i}
+            href={c.href}
+            target={c.href.startsWith("http") ? "_blank" : undefined}
+            rel="noreferrer"
+            className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 backdrop-blur-md transition-all duration-300 hover:border-[#C4F046]/30 hover:bg-[#C4F046]/[0.04]"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 transition-colors group-hover:border-[#C4F046]/40 group-hover:bg-[#C4F046]/10">
+              <c.icon className="h-4 w-4 text-white/70 group-hover:text-[#C4F046] transition-colors" />
+            </div>
+            <span className="text-sm text-white/70 group-hover:text-white transition-colors truncate">
+              {c.label}
+            </span>
+            <ArrowUpRight className="ml-auto h-4 w-4 text-white/30 transition-all duration-300 group-hover:text-[#C4F046] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </a>
+        ))}
+      </motion.div>
+    </section>
   );
 }

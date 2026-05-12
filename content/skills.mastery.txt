@@ -1,0 +1,37 @@
+# Skill mastery checklist (Story 1.9 — FR-076).
+# Only skills listed here may appear in content/skills.ts.
+# Edit by hand. One canonical name per line. Lines starting with # are comments.
+# jQuery and MERISE are intentionally excluded (FR-077).
+
+HTML
+CSS
+PHP
+JavaScript
+TypeScript
+SQL
+Laravel
+Symfony
+React.js
+Next.js
+Vue.js
+Node.js
+Bootstrap
+Tailwind
+Sass
+Figma
+MySQL
+PostgreSQL
+MongoDB
+Linux
+Ubuntu
+Nginx
+Apache
+GitLab CI/CD
+Jenkins
+Git
+Docker
+PHPStorm
+WebStorm
+VS Code
+GitHub
+Flutter

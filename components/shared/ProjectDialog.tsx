@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react";
+import Image from "next/image";
 import {
   DialogHeader,
   DialogTitle,
@@ -9,18 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Github, Globe } from "lucide-react";
-
-interface Project {
-  id: string;
-  title: string;
-  company: string;
-  kind: string;
-  year: string;
-  cover: string;
-  description: string;
-  tags: string[];
-  links: { site: string; repo: string };
-}
+import type { Project } from "@/content/types";
 
 interface ProjectDialogProps {
   project: Project;
@@ -32,12 +22,16 @@ export function ProjectDialog({ project, t }: ProjectDialogProps) {
     const mapping: { [key: string]: string } = {
       'entreprise-csf': 'entrepriseCsf',
       'entreprise-staff': 'entrepriseStaff',
-      'entreprise-hydrolink': 'entrepriseHydrolink',
       'entreprise-ayki': 'entrepriseAyki',
       'entreprise-ptrniger': 'entreprisePtrniger',
-      'entreprise-school': 'entrepriseSchool',
       'entreprise-emmalab': 'entrepriseEmmalab',
       'entreprise-lastuce': 'entrepriseLastuce',
+      'entreprise-clinoo': 'entrepriseClinoo',
+      'entreprise-jandoo': 'entrepriseJandoo',
+      'entreprise-planning': 'entreprisePlanning',
+      'entreprise-pointage': 'entreprisePointage',
+      'entreprise-scholarship': 'entrepriseScholarship',
+      'entreprise-wuroobiz': 'entrepriseWuroobiz',
       'entreprise-guidacenter': 'entrepriseGuidacenter',
       'freelance-softis': 'freelanceSoftis',
       'freelance-nina': 'freelanceNina',
@@ -62,11 +56,15 @@ export function ProjectDialog({ project, t }: ProjectDialogProps) {
         </DialogDescription>
       </DialogHeader>
       <div className="mt-3 sm:mt-4">
-        <img
-          src={project.cover}
-          alt={displayTitle}
-          className="w-full h-48 sm:h-56 lg:h-64 object-cover rounded-lg sm:rounded-xl border border-white/10"
-        />
+        <div className="relative w-full h-48 sm:h-56 lg:h-64 rounded-lg sm:rounded-xl overflow-hidden border border-white/10">
+          <Image
+            src={project.cover}
+            alt={displayTitle}
+            fill
+            sizes="(max-width: 768px) 95vw, 768px"
+            className="object-cover"
+          />
+        </div>
         <p className="mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed text-white/80">{displayDescription}</p>
         <div className="mt-3 sm:mt-4 flex flex-wrap gap-1.5 sm:gap-2">
           {project.tags.map((tag) => (

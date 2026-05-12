@@ -1,0 +1,305 @@
+{
+  "profile": "Profile",
+  "skills": "Skills",
+  "projects": "Projects",
+  "companies": "Companies",
+  "contact": "Contact",
+  "email": "Email",
+  "fullstackDeveloper": "Fullstack Developer",
+  "heroDescription": "Fullstack Developer with 5 years of experience in web and application development. My strong skills in this field have enabled me to achieve excellent results in my projects.",
+  "contactMe": "Contact Me",
+  "learnMore": "Learn More",
+  "about": "About",
+  "location": "Niamey, Niger",
+  "joinMe": "Reach Out",
+  "github": "GitHub",
+  "skillsTitle": "Languages & Tools",
+  "skillsSubtitle": "Selection of technologies I master",
+  "languages": "Languages",
+  "frameworks": "Frameworks",
+  "uiDesign": "UI/Design",
+  "databases": "Databases",
+  "tools": "Tools",
+  "projectsTitle": "Projects",
+  "projectsSubtitle": "Images, descriptions, stacks and links",
+  "search": "Search...",
+  "all": "All",
+  "enterprise": "Enterprise",
+  "freelance": "Freelance",
+  "personal": "Personal",
+  "viewProject": "View",
+  "site": "Site",
+  "code": "Code",
+  "viewSite": "View Site",
+  "viewCode": "View Code",
+  "moreProjectsTitle": "And that's not all!",
+  "moreProjectsDescription": "I have completed over 98 projects in total. This selection represents my most recent and significant achievements.",
+  "projectsShown": "Projects shown",
+  "totalProjects": "Total projects",
+  "portfolioShown": "of my portfolio displayed",
+  "companiesTitle": "Companies & Collaborations",
+  "companiesSubtitle": "Clients and partners I've worked with",
+  "navigation": "Navigation",
+  "social": "Social",
+  "availableFor": "Available for freelance missions & contracts",
+  "copyright": "Fullstack Developer",
+  "switchToEnglish": "Switch to English",
+  "switchToFrench": "Switch to French",
+  "notFoundTitle": "Page not found",
+  "notFoundDescription": "The page you were looking for doesn't exist or has been moved.",
+  "notFoundCta": "Back to home",
+  "errorTitle": "Something went wrong",
+  "errorDescription": "An unexpected error occurred. Please try again.",
+  "errorRetry": "Try again",
+  "brand": {
+    "name": "PTR Niger",
+    "tagline": "Senior software engineering for product teams that ship",
+    "agencyEmail": "mail@ptrniger.com",
+    "domain": "agency.ptrniger.com"
+  },
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "primaryCta": "Book a 20-min discovery call",
+    "menu": "Menu",
+    "close": "Close"
+  },
+  "hero": {
+    "h1Lead": "Senior software engineering",
+    "h1Tail": "for product teams that ship",
+    "subtitle": "PTR Niger has been building Laravel, Next.js and TypeScript platforms across EU, JP and West Africa since 2017. Bilingual EN/FR delivery, EU data residency, no offshore handoffs.",
+    "trustStrip": "Trusted by teams in Niamey, Tokyo, Paris and Brussels",
+    "timezoneBadge": "Working hours 10am–7pm WAT (= 11am–8pm CET)"
+  },
+  "featuredCaseStudies": {
+    "title": "Selected case studies",
+    "subtitle": "Real systems we built, shipped, and operate today.",
+    "viewAll": "See all work"
+  },
+  "servicesOverview": {
+    "title": "Three ways to engage",
+    "subtitle": "Maintenance, audit, build — pick the surface that matches your stage.",
+    "viewAll": "Compare packages"
+  },
+  "secondaryCta": {
+    "title": "Got a system that needs a steady hand?",
+    "subtitle": "We answer in under 4 business hours. EU data residency by default.",
+    "primary": "Book a discovery call",
+    "secondary": "Email us instead"
+  },
+  "services": {
+    "pageTitle": "Services & engagement formats",
+    "pageSubtitle": "Pick the package that matches your stage. EU data residency by default. EUR pricing only — TJM is set during scoping, not on this page.",
+    "euDataResidency": "All client systems we operate or build run inside EU-jurisdiction data centers (Frankfurt, Paris, Amsterdam) by default. Custom regional residency on request.",
+    "packages": {
+      "maintenance": {
+        "name": "Maintenance",
+        "pitch": "Keep an existing platform alive, secure, and quietly improving.",
+        "format": "Retainer, monthly cadence",
+        "duration": "Ongoing — month-to-month, 30-day notice",
+        "price": "From €1,500 / month",
+        "deliverables": [
+          "Security patches, dependency updates, uptime monitoring",
+          "Bug triage and small enhancements within retainer hours",
+          "Monthly health report (perf, errors, dependency drift)",
+          "Direct line to the engineer on Telegram or Slack"
+        ],
+        "fitFor": "Teams with a working product but no in-house engineer to babysit it."
+      },
+      "audit": {
+        "name": "Audit",
+        "pitch": "Independent technical review of an existing system before a hire, raise, or rebuild.",
+        "format": "Fixed-scope sprint",
+        "duration": "5–10 business days",
+        "price": "From €3,000 to €6,000",
+        "deliverables": [
+          "Architecture, performance, security, and operability assessment",
+          "Risk register prioritized by blast radius and effort",
+          "Concrete remediation roadmap with effort estimates",
+          "60-min readout with stakeholders"
+        ],
+        "fitFor": "Founders, CTOs, and investors who need an honest second opinion."
+      },
+      "build": {
+        "name": "Build",
+        "pitch": "Design, build and launch a new product surface end-to-end.",
+        "format": "Fixed-scope project, milestone billing",
+        "duration": "From 4 weeks",
+        "price": "From €12,000",
+        "deliverables": [
+          "Discovery, technical design, and milestone plan",
+          "Implementation in Laravel / Next.js / TypeScript stack",
+          "Bilingual EN/FR support, EU data residency, CI/CD",
+          "30-day post-launch maintenance retainer included"
+        ],
+        "fitFor": "Companies launching a new product or rebuilding a legacy surface."
+      }
+    },
+    "engageCta": "Discuss this engagement",
+    "partner": {
+      "title": "Partner with us",
+      "subtitle": "Overflow capacity for boutique agencies",
+      "body": "If you're a 5–20 person agency in Paris, Brussels or Tokyo and you've outgrown your delivery bench, we run dedicated PTR squads under your brand. EU contracts, your client owns the IP, transparent rate cards.",
+      "cta": "Talk to us about a partnership"
+    }
+  },
+  "about": {
+    "pageTitle": "PTR Niger — nine years of building software that ships",
+    "founded": "Founded in Niamey, Niger, 2017.",
+    "intro": "We are a senior software studio of 10+ engineers who have shipped Laravel, Next.js, Vue and Symfony platforms across logistics, EdTech, sport-tech, real estate and recruitment for clients in Niger, France, Belgium and Japan.",
+    "differentiator": "Bilingual EN+FR delivery, EU data residency by default, and one engagement composition: senior people doing the work, no offshore handoffs.",
+    "teamPhotoAlt": "PTR Niger team in Niamey",
+    "compositionTitle": "How we engage",
+    "composition": "Every engagement runs with a senior tech lead and a delivery counterpart. We don't disclose individual names on the public site by default — the work, the metrics, and the contracts speak for the team.",
+    "sectorsTitle": "Sectors we know",
+    "sectors": [
+      "Logistics & cross-border trade",
+      "EdTech / school management",
+      "Sport-tech & member-managed clubs",
+      "Real estate & vertical marketplaces",
+      "HR-tech & recruitment platforms"
+    ],
+    "stackTitle": "Validated stack",
+    "stackBlurb": "TypeScript (advanced patterns), Laravel + PHPUnit, Symfony, Next.js, React, Vue, Node.js, PostgreSQL, MySQL, Redis, REST + GraphQL, Stripe, Vercel + AWS + DigitalOcean. Test stack: Jest, Vitest, Playwright. AI APIs (Claude / OpenAI) for production features.",
+    "euDataResidency": "Client data and operational systems run on EU-jurisdiction infrastructure by default."
+  },
+  "work": {
+    "pageTitle": "Work",
+    "pageSubtitle": "Twelve PTR-validated projects across EU, JP and West Africa. Filter by sector, region, or type.",
+    "filterSector": "Sector",
+    "filterRegion": "Region",
+    "filterType": "Type",
+    "filterAll": "All",
+    "search": "Search projects, tags, sectors…",
+    "empty": "No projects match these filters yet."
+  },
+  "contact": {
+    "pageTitle": "Let's scope your engagement",
+    "pageSubtitle": "We answer in under 4 business hours. EU data residency by default.",
+    "intakeTitle": "Project brief",
+    "fields": {
+      "name": "Your name",
+      "company": "Company",
+      "email": "Work email",
+      "type": "Project type",
+      "brief": "What are you trying to build?",
+      "source": "Where did you hear about us?",
+      "consent": "I agree to PTR Niger's privacy policy.",
+      "submit": "Send brief"
+    },
+    "types": {
+      "maintenance": "Maintenance retainer",
+      "audit": "Audit",
+      "build": "Build / new product",
+      "partnership": "Agency partnership",
+      "other": "Other"
+    },
+    "ack": {
+      "title": "Brief received",
+      "body": "We've logged your brief and will reply within 4 business hours (Mon–Fri, 10am–7pm WAT)."
+    },
+    "errors": {
+      "generic": "Something went wrong sending your brief. Please email us instead.",
+      "rateLimit": "Too many submissions from this network. Try again in an hour or email us directly.",
+      "validation": "Please double-check the highlighted fields."
+    },
+    "fallbackEmailLabel": "Or just email us:"
+  },
+  "footer": {
+    "tagline": "Senior software engineering · Niamey · since 2017",
+    "navigation": "Navigate",
+    "legal": "Legal",
+    "privacy": "Privacy",
+    "imprint": "Imprint",
+    "rights": "All rights reserved."
+  },
+  "cookies": {
+    "title": "We respect your privacy",
+    "body": "We use Umami (self-hosted, cookieless analytics) to count anonymous page views. Calendly and the contact form set short-lived cookies only when you interact with them. Nothing is shared with ad networks.",
+    "accept": "OK, I understand",
+    "more": "Read the privacy policy"
+  },
+  "projectDetails": {
+    "entrepriseCsf": {
+      "title": "Commande Sans Frontière",
+      "description": "Multimodal transport platform (air, sea, and road) offering customized solutions for international trade. Over 5 years of experience with fast and secure delivery from China."
+    },
+    "entrepriseStaff": {
+      "title": "NigerDev Staff",
+      "description": "Complete business management application integrating employee management, intern tracking, and payroll administration. Centralized solution to optimize HR processes."
+    },
+    "entrepriseAyki": {
+      "title": "AYKI Jobs",
+      "description": "Recruitment platform that connects talents with opportunities. AYKI simplifies the process by directly connecting the best candidates with companies seeking their skills."
+    },
+    "entreprisePtrniger": {
+      "title": "PTR Niger E-Learning",
+      "description": "E-learning platform offering training in entrepreneurship, digital marketing, IT and more. Students enroll and learn directly online with personalized support."
+    },
+    "entrepriseEmmalab": {
+      "title": "EMMA-Lab",
+      "description": "Innovation lab that supports entrepreneurs and organizations in their digital transformation and innovative projects. Innovating together to build the future."
+    },
+    "entrepriseLastuce": {
+      "title": "L'Astuce",
+      "description": "Tips community for discovering the best techniques with a passionate community. Practical advice to improve daily life: view episodes and submit your own tips."
+    },
+    "entrepriseClinoo": {
+      "title": "Clinoo+",
+      "description": "All-in-one medical practice platform for clinics and private practitioners: electronic patient records, appointment scheduling, billing, clinical documentation, and analytics. GDPR-compliant and already trusted by 1,000+ practitioners."
+    },
+    "entrepriseJandoo": {
+      "title": "Jandoo",
+      "description": "Intelligent school management platform for higher-education LMD institutions: academic structure, enrollment, schedules, attendance, grades, tuition, payroll, and official documents — across 9 integrated modules."
+    },
+    "entreprisePlanning": {
+      "title": "Smart Planner",
+      "description": "AI-powered scheduler that automatically generates a 14-day plan respecting priorities, working hours, and multi-project constraints. Hourly time blocks, conflict alerts, and customizable work rhythm."
+    },
+    "entreprisePointage": {
+      "title": "PointageAI",
+      "description": "Intelligent attendance system powered by advanced facial recognition. Real-time presence tracking, detailed reporting and statistics, plus a mobile app for employees."
+    },
+    "entrepriseScholarship": {
+      "title": "ScholarshipNiger",
+      "description": "Platform helping Nigerien students reach international scholarships: 500+ active scholarships, 50+ partner countries, and end-to-end guidance to apply to global opportunities."
+    },
+    "entrepriseWuroobiz": {
+      "title": "Wuroobiz",
+      "description": "All-in-one cloud business-management solution for African SMEs: point of sale, inventory, accounting, HR, 40+ advanced reports, and a built-in WhatsApp AI agent."
+    },
+    "entrepriseGuidacenter": {
+      "title": "GuidaCenter",
+      "description": "Modern real estate platform that simplifies buying, selling, and renting properties in Niger. Intuitive interface to facilitate real estate transactions."
+    },
+    "freelanceSoftis": {
+      "title": "Softis Pilates",
+      "description": "Complete platform for a Pilates sports club in Japan. Management of classes, bookings, members, and scheduling for an optimal user experience."
+    },
+    "freelanceNina": {
+      "title": "Nina Massage & Physio",
+      "description": "Professional massage center in Niamey offering massage and physiotherapy. Premium services: lymphatic drainage, 4-hand massage, aesthetic treatments, and more."
+    },
+    "personnelIcall": {
+      "title": "iCall CRM",
+      "description": "Complete CRM suite with numerous features: contact management, opportunity tracking, process automation, and analytical reports. Robust solution for customer relationship management."
+    },
+    "personnelGestion": {
+      "title": "Shop Management",
+      "description": "Shop management application integrating inventory management, accounting, revenue tracking, and business operations. Simple interface for efficient daily management."
+    },
+    "personnelShop": {
+      "title": "Shop POS",
+      "description": "Complete business management application: suppliers, accounting, purchases, QR codes, and POS system for instant sales. All-in-one solution for point-of-sale management."
+    }
+  },
+  "companyDescriptions": {
+    "freelance": "Custom web and mobile project development, complete project management, technical support and client relations.",
+    "icall": "Software updates and bug fixes management, user training, client needs analysis and improvement proposals.",
+    "ptrNiger": "Creation of responsive and SEO-optimized websites with React, attractive user interface design and mockups.",
+    "idevNiger": "Implementation of innovative and technological projects, application design, collaboration with multidisciplinary teams."
+  }
+}
