@@ -4,6 +4,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing, type Locale } from "@/lib/i18n/routing";
+import { getServerTheme } from "@/lib/theme";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { CookieBanner } from "@/components/site/CookieBanner";
@@ -91,9 +92,10 @@ export default async function LocaleLayout({
     notFound();
   }
   setRequestLocale(locale as Locale);
+  const theme = await getServerTheme();
 
   return (
-    <html lang={locale} className="dark">
+    <html lang={locale} className={theme === "dark" ? "dark" : undefined}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

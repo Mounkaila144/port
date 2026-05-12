@@ -1,5 +1,6 @@
 import { Hero } from "@/components/site/Hero";
 import { TrustStrip } from "@/components/site/TrustStrip";
+import { NumbersStrip } from "@/components/site/NumbersStrip";
 import { FeaturedCaseStudies } from "@/components/site/FeaturedCaseStudies";
 import { ServicesOverview } from "@/components/site/ServicesOverview";
 import { SecondaryCta } from "@/components/site/SecondaryCta";
@@ -29,6 +30,7 @@ export default async function Home({
       />
       <Hero />
       <TrustStrip />
+      <NumbersStrip />
       <FeaturedCaseStudies />
       <ServicesOverview />
       <SecondaryCta />

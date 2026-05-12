@@ -18,7 +18,7 @@ export async function FeaturedCaseStudies() {
         </div>
         <Link
           href="/work"
-          className="hidden sm:inline-flex items-center gap-1 rounded-full border border-white/15 px-4 py-2 text-sm text-off-white hover:border-ptr-teal/40"
+          className="hidden sm:inline-flex items-center gap-1 rounded-full border border-line px-4 py-2 text-sm text-off-white hover:border-ptr-teal/40"
         >
           {t("featuredCaseStudies.viewAll")} <ArrowUpRight className="h-4 w-4" />
         </Link>
@@ -31,7 +31,7 @@ export async function FeaturedCaseStudies() {
             <li key={cs.slug}>
               <Link
                 href={{ pathname: "/case-studies/[slug]", params: { slug } }}
-                className="group block overflow-hidden rounded-3xl border border-white/[0.08] bg-surface/60 transition-colors hover:border-ptr-teal/40"
+                className="group block overflow-hidden rounded-3xl border border-line bg-surface/60 transition-colors hover:border-ptr-teal/40"
               >
                 <div className="relative aspect-[16/9] overflow-hidden">
                   <Image
@@ -42,7 +42,7 @@ export async function FeaturedCaseStudies() {
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/30 to-transparent" />
-                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-off-white backdrop-blur-md">
+                  <div className="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full border border-line bg-black/40 px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-off-white backdrop-blur-md">
                     <span>{cs.flag}</span>
                     <span>{cs.region}</span>
                     <span>·</span>
@@ -56,7 +56,7 @@ export async function FeaturedCaseStudies() {
                     {cs.stack.slice(0, 4).map((s) => (
                       <li
                         key={s}
-                        className="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[10px] font-mono uppercase text-muted"
+                        className="rounded-full border border-line bg-soft px-2.5 py-0.5 text-[10px] font-mono uppercase text-muted"
                       >
                         {s}
                       </li>

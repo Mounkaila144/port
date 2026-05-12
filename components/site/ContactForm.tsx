@@ -127,7 +127,7 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="mt-1.5 block w-full rounded-xl border border-white/[0.08] bg-surface/60 px-4 py-2.5 text-sm text-off-white placeholder:text-muted focus:border-ptr-teal/40 focus:outline-none"
+        className="mt-1.5 block w-full rounded-xl border border-line bg-surface/60 px-4 py-2.5 text-sm text-off-white placeholder:text-muted focus:border-ptr-teal/40 focus:outline-none"
       />
     </label>
   );
@@ -154,7 +154,7 @@ function TextAreaField({
         name={name}
         rows={rows}
         required={required}
-        className="mt-1.5 block w-full rounded-xl border border-white/[0.08] bg-surface/60 px-4 py-2.5 text-sm text-off-white placeholder:text-muted focus:border-ptr-teal/40 focus:outline-none"
+        className="mt-1.5 block w-full rounded-xl border border-line bg-surface/60 px-4 py-2.5 text-sm text-off-white placeholder:text-muted focus:border-ptr-teal/40 focus:outline-none"
       />
     </label>
   );
@@ -177,7 +177,7 @@ function SelectField({
       <select
         name={name}
         defaultValue={defaultValue}
-        className="mt-1.5 block w-full rounded-xl border border-white/[0.08] bg-surface/60 px-4 py-2.5 text-sm text-off-white focus:border-ptr-teal/40 focus:outline-none"
+        className="mt-1.5 block w-full rounded-xl border border-line bg-surface/60 px-4 py-2.5 text-sm text-off-white focus:border-ptr-teal/40 focus:outline-none"
       >
         {options.map((o) => (
           <option key={o.value} value={o.value} className="bg-carbon text-off-white">

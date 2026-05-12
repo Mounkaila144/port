@@ -301,5 +301,17 @@
     "icall": "Gestion des mises à jour et correctifs logiciels, formation des utilisateurs, analyse des besoins clients et propositions d'améliorations.",
     "ptrNiger": "Création de sites web responsives et optimisés SEO avec React, conception d'interfaces utilisateurs attractives et de maquettes.",
     "idevNiger": "Réalisation de projets innovants et technologiques, conception d'applications, collaboration avec des équipes pluridisciplinaires."
+  },
+  "theme": {
+    "switchToLight": "Passer en mode clair",
+    "switchToDark": "Passer en mode sombre"
+  },
+  "numbersStrip": {
+    "eyebrow": "En chiffres",
+    "title": "Cinq ans à livrer sous contraintes opérationnelles ouest-africaines.",
+    "yearsLabel": "Années d'expertise",
+    "projectsLabel": "Projets livrés",
+    "caseStudiesLabel": "Études de cas documentées",
+    "sectorsLabel": "Secteurs couverts"
   }
 }

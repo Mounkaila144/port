@@ -301,5 +301,17 @@
     "icall": "Software updates and bug fixes management, user training, client needs analysis and improvement proposals.",
     "ptrNiger": "Creation of responsive and SEO-optimized websites with React, attractive user interface design and mockups.",
     "idevNiger": "Implementation of innovative and technological projects, application design, collaboration with multidisciplinary teams."
+  },
+  "theme": {
+    "switchToLight": "Switch to light mode",
+    "switchToDark": "Switch to dark mode"
+  },
+  "numbersStrip": {
+    "eyebrow": "By the numbers",
+    "title": "Five years of shipping under West-African operational constraints.",
+    "yearsLabel": "Years building",
+    "projectsLabel": "Projects shipped",
+    "caseStudiesLabel": "Documented case studies",
+    "sectorsLabel": "Sectors served"
   }
 }

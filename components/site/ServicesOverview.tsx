@@ -11,7 +11,7 @@ const PACKAGES = [
 export async function ServicesOverview() {
   const t = await getTranslations();
   return (
-    <section className="border-t border-white/[0.06] bg-surface/30">
+    <section className="border-t border-line bg-surface/30">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="mb-10 flex items-end justify-between gap-4">
           <div className="space-y-2">
@@ -22,7 +22,7 @@ export async function ServicesOverview() {
           </div>
           <Link
             href="/services"
-            className="hidden sm:inline-flex items-center gap-1 rounded-full border border-white/15 px-4 py-2 text-sm text-off-white hover:border-ptr-teal/40"
+            className="hidden sm:inline-flex items-center gap-1 rounded-full border border-line px-4 py-2 text-sm text-off-white hover:border-ptr-teal/40"
           >
             {t("servicesOverview.viewAll")} <ArrowUpRight className="h-4 w-4" />
           </Link>
@@ -31,7 +31,7 @@ export async function ServicesOverview() {
           {PACKAGES.map(({ key, icon: Icon }) => (
             <li
               key={key}
-              className="group flex flex-col gap-4 rounded-3xl border border-white/[0.08] bg-carbon/60 p-6 transition-colors hover:border-ptr-teal/40"
+              className="group flex flex-col gap-4 rounded-3xl border border-line bg-carbon/60 p-6 transition-colors hover:border-ptr-teal/40"
             >
               <div className="flex items-center justify-between">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-ptr-teal/10 text-ptr-teal">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/lib/i18n/navigation";
 
@@ -5,10 +6,20 @@ export async function SiteFooter() {
   const t = await getTranslations();
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-white/[0.06] bg-carbon">
+    <footer className="border-t border-line bg-carbon">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-12 lg:gap-12 lg:px-8">
         <div className="space-y-3 lg:col-span-5">
-          <p className="font-display text-2xl text-off-white">{t("brand.name")}</p>
+          <div className="flex items-center gap-3">
+            <Image
+              src="/image/ptrniger.png"
+              alt=""
+              aria-hidden
+              width={56}
+              height={56}
+              className="h-14 w-14 object-contain"
+            />
+            <p className="font-display text-2xl text-off-white">{t("brand.name")}</p>
+          </div>
           <p className="max-w-md text-sm text-muted">{t("footer.tagline")}</p>
         </div>
 
@@ -45,11 +56,14 @@ export async function SiteFooter() {
           </a>
         </div>
       </div>
-      <div className="border-t border-white/[0.06]">
+      <div className="border-t border-line">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-4 py-4 font-mono text-[11px] uppercase tracking-wider text-muted sm:flex-row sm:px-6 lg:px-8">
           <span>© {year} {t("brand.name")}. {t("footer.rights")}</span>
           <span className="flex items-center gap-2">
-            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ptr-teal" />
+            <span aria-hidden className="inline-flex items-center gap-1">
+              <span className="h-1.5 w-1.5 rounded-full bg-ptr-red" />
+              <span className="h-1.5 w-1.5 rounded-full bg-ptr-teal" />
+            </span>
             {t("hero.timezoneBadge")}
           </span>
         </div>

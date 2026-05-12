@@ -1,12 +1,30 @@
 @import "tailwindcss";
 
+/* Light mode = default. The cookie-driven theme toggle adds `.dark` on <html>. */
 :root {
-  --ptr-red: #E8273E;
-  --ptr-teal: #1FB8CC;
-  --carbon: #0A0E0C;
-  --surface: #121815;
-  --off-white: #F5F7F4;
-  --muted: #9BA8A2;
+  /* Brand colors — adapted to keep AA contrast on light backgrounds. */
+  --ptr-red: #B7152A;
+  --ptr-teal: #0E7480;
+  /* Vivid variants stay invariant — use for decorative accents (no body text). */
+  --ptr-red-vivid: #E8273E;
+  --ptr-teal-vivid: #1FB8CC;
+
+  /* Surface / text tokens — the names stay (carbon/off-white/surface) but the
+     values pivot between modes so existing Tailwind classes bascule automatically. */
+  --carbon: #F5F7F4;
+  --surface: #FFFFFF;
+  --off-white: #0A0E0C;
+  --muted: #5A6660;
+
+  /* Adaptive overlays — derived from the foreground so borders/glass surfaces
+     stay visible in both modes. */
+  --overlay-soft: rgba(10, 14, 12, 0.04);
+  --overlay-mid: rgba(10, 14, 12, 0.08);
+  --border-soft: rgba(10, 14, 12, 0.12);
+
+  /* Ink colors on top of brand-coloured backgrounds (CTA labels). */
+  --on-teal: #F5F7F4;
+  --on-red: #F5F7F4;
 
   --background: var(--carbon);
   --foreground: var(--off-white);
@@ -15,39 +33,71 @@
   --popover: var(--surface);
   --popover-foreground: var(--off-white);
   --primary: var(--ptr-teal);
-  --primary-foreground: var(--carbon);
-  --secondary: #1A2220;
+  --primary-foreground: var(--on-teal);
+  --secondary: #EFF2EE;
   --secondary-foreground: var(--off-white);
   --muted-foreground: var(--muted);
   --accent: var(--ptr-red);
-  --accent-foreground: var(--off-white);
-  --destructive: #EF4444;
-  --destructive-foreground: var(--off-white);
-  --border: rgba(245, 247, 244, 0.08);
-  --input: rgba(245, 247, 244, 0.1);
+  --accent-foreground: var(--on-red);
+  --destructive: #DC2626;
+  --destructive-foreground: #F5F7F4;
+  --border: var(--border-soft);
+  --input: var(--border-soft);
   --ring: var(--ptr-teal);
+}
 
-  --lime: var(--ptr-teal);
-  --lime-bright: var(--ptr-teal);
-  --orange: var(--ptr-red);
-  --orange-bright: var(--ptr-red);
+.dark {
+  /* Vivid brand colours on dark surfaces (already AA verified by check-contrast). */
+  --ptr-red: #E8273E;
+  --ptr-teal: #1FB8CC;
+
+  --carbon: #0A0E0C;
+  --surface: #121815;
+  --off-white: #F5F7F4;
+  --muted: #9BA8A2;
+
+  --overlay-soft: rgba(245, 247, 244, 0.03);
+  --overlay-mid: rgba(245, 247, 244, 0.06);
+  --border-soft: rgba(245, 247, 244, 0.08);
+
+  --on-teal: #0A0E0C;
+  --on-red: #F5F7F4;
+
+  --secondary: #1A2220;
 }
 
 @theme inline {
   --color-ptr-red: var(--ptr-red);
   --color-ptr-teal: var(--ptr-teal);
+  --color-ptr-red-vivid: var(--ptr-red-vivid);
+  --color-ptr-teal-vivid: var(--ptr-teal-vivid);
+
   --color-carbon: var(--carbon);
   --color-surface: var(--surface);
   --color-off-white: var(--off-white);
   --color-muted: var(--muted);
+
+  --color-on-teal: var(--on-teal);
+  --color-on-red: var(--on-red);
+
+  /* Adaptive overlay utilities — use bg-soft / bg-elev / border-line in place
+     of bg-white/[0.0X] and border-white/[0.0X] so they invert with the mode. */
+  --color-soft: var(--overlay-soft);
+  --color-elev: var(--overlay-mid);
+  --color-line: var(--border-soft);
 }
 
 * {
-  border-color: var(--border);
+  border-color: var(--border-soft);
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -72,21 +122,26 @@ body {
 }
 
 .text-mask-lime {
-  background: linear-gradient(135deg, #C4F046 0%, #D4FF5A 50%, #C4F046 100%);
+  background: linear-gradient(
+    135deg,
+    var(--ptr-teal) 0%,
+    color-mix(in oklab, var(--ptr-teal) 75%, white) 50%,
+    var(--ptr-teal) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-mask-orange {
-  background: linear-gradient(135deg, #FF6B35 0%, #FF8855 100%);
+  background: linear-gradient(135deg, var(--ptr-red) 0%, color-mix(in oklab, var(--ptr-red) 70%, white) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-mask-mono {
-  background: linear-gradient(180deg, #FAFAFA 0%, #888 100%);
+.text-mask-ptr {
+  background: linear-gradient(135deg, var(--ptr-red) 0%, var(--ptr-teal) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -111,17 +166,33 @@ body {
 }
 
 .glow-lime {
-  box-shadow: 0 0 60px -10px rgba(196, 240, 70, 0.4), 0 0 100px -20px rgba(196, 240, 70, 0.2);
+  box-shadow:
+    0 0 60px -10px color-mix(in oklab, var(--ptr-teal) 40%, transparent),
+    0 0 100px -20px color-mix(in oklab, var(--ptr-teal) 20%, transparent);
 }
 
 .glow-orange {
-  box-shadow: 0 0 60px -10px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 0 60px -10px color-mix(in oklab, var(--ptr-red) 40%, transparent);
+}
+
+.glow-teal {
+  box-shadow: 0 0 40px -10px color-mix(in oklab, var(--ptr-teal) 50%, transparent);
+}
+
+.glow-red {
+  box-shadow: 0 0 40px -10px color-mix(in oklab, var(--ptr-red) 50%, transparent);
 }
 
 .border-gradient {
   position: relative;
-  background: linear-gradient(var(--card), var(--card)) padding-box,
-              linear-gradient(135deg, rgba(196, 240, 70, 0.4), rgba(255, 107, 53, 0.2), rgba(196, 240, 70, 0)) border-box;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--ptr-teal) 45%, transparent),
+      color-mix(in oklab, var(--ptr-red) 30%, transparent),
+      color-mix(in oklab, var(--ptr-teal) 0%, transparent)
+    ) border-box;
   border: 1px solid transparent;
 }
 
@@ -163,7 +234,12 @@ body {
 }
 
 .shimmer {
-  background: linear-gradient(90deg, transparent, rgba(196, 240, 70, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--ptr-teal) 22%, transparent),
+    transparent
+  );
   background-size: 200% 100%;
   animation: shimmer 3s linear infinite;
 }
@@ -199,8 +275,8 @@ body {
 }
 
 ::selection {
-  background: var(--lime);
-  color: var(--background);
+  background: var(--ptr-teal);
+  color: var(--on-teal);
 }
 
 ::-webkit-scrollbar {
@@ -218,5 +294,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--lime);
+  background: var(--ptr-teal);
 }
