@@ -92,7 +92,7 @@
   },
   "services": {
     "pageTitle": "Services & formats d'engagement",
-    "pageSubtitle": "Choisissez le forfait qui correspond à votre étape. Hébergement UE par défaut. Tarifs en EUR uniquement — le TJM est fixé en cadrage, pas sur cette page.",
+    "pageSubtitle": "Choisissez le forfait qui correspond à votre étape. Hébergement UE par défaut. Tarifs en EUR et FCFA (parité fixe 1 € = 655,957 FCFA) — le TJM est fixé en cadrage, pas sur cette page.",
     "euDataResidency": "Tous les systèmes clients que nous exploitons ou construisons tournent par défaut dans des datacenters de juridiction UE (Francfort, Paris, Amsterdam). Hébergement régional sur mesure sur demande.",
     "packages": {
       "maintenance": {
@@ -100,7 +100,7 @@
         "pitch": "Maintenir une plateforme existante en vie, sécurisée et qui s'améliore en continu.",
         "format": "Régie, cadence mensuelle",
         "duration": "En continu — mois par mois, préavis 30 jours",
-        "price": "À partir de 1 500 € / mois",
+        "price": "À partir de 1 500 € / mois · ≈ 984 000 FCFA",
         "deliverables": [
           "Patchs de sécurité, mises à jour de dépendances, supervision uptime",
           "Triage des bugs et petites évolutions dans le forfait",
@@ -114,7 +114,7 @@
         "pitch": "Revue technique indépendante d'un système existant avant une embauche, une levée ou une refonte.",
         "format": "Sprint à périmètre fixe",
         "duration": "5 à 10 jours ouvrés",
-        "price": "De 3 000 € à 6 000 €",
+        "price": "De 3 000 € à 6 000 € · ≈ 1 968 000 à 3 936 000 FCFA",
         "deliverables": [
           "Évaluation architecture, perf, sécurité et opérabilité",
           "Registre de risques priorisé par impact et effort",
@@ -128,7 +128,7 @@
         "pitch": "Concevoir, construire et lancer une nouvelle surface produit de bout en bout.",
         "format": "Projet à périmètre fixe, facturation par jalons",
         "duration": "À partir de 4 semaines",
-        "price": "À partir de 12 000 €",
+        "price": "À partir de 12 000 € · ≈ 7 872 000 FCFA",
         "deliverables": [
           "Cadrage, conception technique et plan de jalons",
           "Implémentation en stack Laravel / Next.js / TypeScript",
@@ -168,7 +168,7 @@
   },
   "work": {
     "pageTitle": "Réalisations",
-    "pageSubtitle": "Douze projets validés par PTR en UE, JP et Afrique de l'Ouest. Filtrez par secteur, région ou type.",
+    "pageSubtitle": "Projets validés par PTR en UE, JP et Afrique de l'Ouest, dont une suite GovTech pour les administrations nigériennes. Filtrez par secteur, région ou type.",
     "filterSector": "Secteur",
     "filterRegion": "Région",
     "filterType": "Type",
@@ -313,5 +313,63 @@
     "projectsLabel": "Projets livrés",
     "caseStudiesLabel": "Études de cas documentées",
     "sectorsLabel": "Secteurs couverts"
+  },
+  "publicSector": {
+    "eyebrow": "Secteur public · Niger",
+    "title": "Plateformes GovTech pour les administrations nigériennes",
+    "subtitle": "Neuf solutions conçues pour les ministères, mairies, universités et structures de santé publiques au Niger.",
+    "problemLabel": "Problème",
+    "solutionLabel": "Solution",
+    "viewLive": "Voir le site",
+    "ctaTitle": "Une administration à digitaliser ?",
+    "ctaSubtitle": "Audit gratuit du processus actuel, devis sous 4 jours ouvrés.",
+    "ctaButton": "Parler de votre projet",
+    "projects": {
+      "queue": {
+        "title": "Gestion des files d'attente et rendez-vous",
+        "problem": "Dans les services publics (DGI, mairies, hôpitaux, tribunaux, état civil, centres d'enrôlement), les citoyens passent des heures à attendre sans savoir leur tour. Les agents ne savent pas combien de personnes restent à traiter et les responsables n'ont aucune donnée sur les temps d'attente.",
+        "solution": "Plateforme web + mobile + écrans d'affichage qui permet de prendre rendez-vous, recevoir un ticket numérique, suivre sa file en temps réel et être notifié par SMS."
+      },
+      "eservices": {
+        "title": "Demandes administratives en ligne",
+        "problem": "Beaucoup de démarches restent papier : attestations, certificats, autorisations. Les citoyens se déplacent plusieurs fois et les administrations gèrent sur cahiers manuscrits.",
+        "solution": "Portail web et mobile : création de compte, dépôt de demande, pièces jointes, paiement en ligne, suivi d'avancement et document final avec QR code de vérification. Livraison module métier par module métier (attestation de résidence, scolarité, autorisation de commerce)."
+      },
+      "mailroom": {
+        "title": "Gestion électronique du courrier (GEC)",
+        "problem": "Dans presque toutes les administrations, les courriers entre ministères, directions et services se perdent ou stagnent sans traçabilité. Un dossier important peut dormir trois mois sur un bureau.",
+        "solution": "Logiciel de GEC avec numérotation automatique, scan PDF, attribution à un agent, suivi des délais, relances automatiques, signature électronique et archivage."
+      },
+      "hr": {
+        "title": "Ressources humaines publiques",
+        "problem": "Suivre les agents publics est un casse-tête : présences, affectations, congés, missions, formations. Beaucoup d'établissements gèrent sur papier ou Excel éparpillés.",
+        "solution": "Système RH avec dossier numérique de chaque agent, gestion des congés, présences, affectations et missions. Modules non sensibles d'abord (la paie reste en dehors du périmètre par défaut, vu l'existant SIGRHE/SIGASPE)."
+      },
+      "projectsTracking": {
+        "title": "Suivi des projets publics",
+        "problem": "Les projets publics (routes, écoles, forages, centres de santé) sont difficiles à suivre : avancement chantier, budget consommé, entreprises, retards, photos terrain. Bailleurs et autorités manquent de visibilité.",
+        "solution": "Tableau de bord cartographique des projets publics : budget, taux d'exécution, photos terrain, rapports, alertes de retard. Accès configurable autorités / bailleurs / grand public."
+      },
+      "citizenFeedback": {
+        "title": "Plaintes et doléances citoyennes",
+        "problem": "Les citoyens ne savent pas où signaler nid-de-poule, éclairage en panne, ordures, fuites, absences d'agent. Quand ils signalent, rien ne bouge ou ils ne sont jamais informés.",
+        "solution": "Application web et mobile : signalement avec photo et géolocalisation, l'administration reçoit, assigne, traite, clôture et informe le citoyen automatiquement."
+      },
+      "schools": {
+        "title": "Gestion des écoles publiques — Jandoo",
+        "problem": "Les écoles publiques peinent à suivre élèves, enseignants, absences, notes, infrastructures, matériel. L'inspection ignore en temps réel qui manque d'enseignants ou de tables-bancs.",
+        "solution": "Plateforme école avec inscriptions, présence, notes, gestion des enseignants et inventaire — accessible à l'école, à l'inspection et à la commune."
+      },
+      "health": {
+        "title": "Centres de santé — Clinoo",
+        "problem": "CSI, hôpitaux de district et CHR ont du mal à suivre patients, consultations, médicaments. Dossier patient sur papier, stock pharmacie mal suivi, ruptures fréquentes, statistiques mensuelles laborieuses.",
+        "solution": "Dossier patient électronique simple, registre des consultations, gestion de stock pharmacie avec alertes, et statistiques mensuelles compatibles DHIS2."
+      },
+      "permits": {
+        "title": "Permis et autorisations",
+        "problem": "Permis de construire, ouverture de commerce, occupation du domaine public, autorisation d'événement, autorisation de transport sont traités manuellement. Le citoyen court des semaines entre les bureaux et les mairies perdent des recettes (paiements espèces non tracés).",
+        "solution": "Plateforme de dépôt en ligne, validation technique multi-services, paiement en ligne, délivrance d'un PDF avec QR code de vérification."
+      }
+    }
   }
 }

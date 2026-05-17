@@ -7,7 +7,12 @@ import { Link } from "@/lib/i18n/navigation";
 import { Search as SearchIcon, Globe } from "lucide-react";
 import { projects } from "@/content/projects";
 import { caseStudies } from "@/content/case-studies";
+import { govtechProjects } from "@/content/govtech";
 import type { Project } from "@/content/types";
+
+const govtechIconById = Object.fromEntries(
+  govtechProjects.map((g) => [g.id, g.icon] as const),
+);
 
 const SECTORS = ["all", ...Array.from(new Set(projects.map((p) => p.sector).filter(Boolean) as string[]))];
 const REGIONS = ["all", ...Array.from(new Set(projects.map((p) => p.region).filter(Boolean) as string[]))];
@@ -76,22 +81,45 @@ export default function WorkPage() {
           {filtered.map((p) => {
             const cs = projectCaseStudy(p);
             const slug = cs ? (locale === "fr" ? cs.slugFr : cs.slug) : null;
+            const GovIcon = p.govtechId ? govtechIconById[p.govtechId] : null;
             const card = (
               <div className="group flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-surface/60 transition-colors hover:border-ptr-teal/40">
                 <div className="relative aspect-[16/10]">
-                  <Image
-                    src={p.cover}
-                    alt={p.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/30 to-transparent" />
+                  {p.cover ? (
+                    <>
+                      <Image
+                        src={p.cover}
+                        alt={p.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-carbon via-carbon/30 to-transparent" />
+                    </>
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ptr-teal/15 via-surface/40 to-carbon/60">
+                      <div
+                        aria-hidden
+                        className="absolute inset-0 opacity-[0.35] [background-image:radial-gradient(circle_at_1px_1px,var(--color-line)_1px,transparent_0)] [background-size:18px_18px]"
+                      />
+                      {GovIcon && (
+                        <span className="relative inline-flex h-14 w-14 items-center justify-center rounded-2xl border border-ptr-teal/30 bg-ptr-teal/10 text-ptr-teal">
+                          <GovIcon className="h-7 w-7" />
+                        </span>
+                      )}
+                    </div>
+                  )}
                   <div className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full border border-white/20 bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-white backdrop-blur-md">
                     {p.region && <span>{p.region}</span>}
                     {p.region && <span aria-hidden className="opacity-60">·</span>}
                     <span>{p.year}</span>
                   </div>
+                  {p.category === "govtech" && (
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-full border border-ptr-teal/40 bg-ptr-teal/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider text-ptr-teal backdrop-blur-md">
+                      <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-ptr-teal" />
+                      GovTech
+                    </span>
+                  )}
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-5">
                   <div className="flex items-center justify-between gap-2">

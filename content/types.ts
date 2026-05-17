@@ -38,6 +38,8 @@ export interface Project {
   links: ProjectLinks;
   region?: string;
   sector?: string;
+  category?: "govtech";
+  govtechId?: string;
 }
 
 export interface Company {

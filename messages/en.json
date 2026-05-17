@@ -92,7 +92,7 @@
   },
   "services": {
     "pageTitle": "Services & engagement formats",
-    "pageSubtitle": "Pick the package that matches your stage. EU data residency by default. EUR pricing only — TJM is set during scoping, not on this page.",
+    "pageSubtitle": "Pick the package that matches your stage. EU data residency by default. Pricing in EUR and XOF (fixed peg 1 € = 655.957 XOF) — TJM is set during scoping, not on this page.",
     "euDataResidency": "All client systems we operate or build run inside EU-jurisdiction data centers (Frankfurt, Paris, Amsterdam) by default. Custom regional residency on request.",
     "packages": {
       "maintenance": {
@@ -100,7 +100,7 @@
         "pitch": "Keep an existing platform alive, secure, and quietly improving.",
         "format": "Retainer, monthly cadence",
         "duration": "Ongoing — month-to-month, 30-day notice",
-        "price": "From €1,500 / month",
+        "price": "From €1,500 / month · ≈ XOF 984,000",
         "deliverables": [
           "Security patches, dependency updates, uptime monitoring",
           "Bug triage and small enhancements within retainer hours",
@@ -114,7 +114,7 @@
         "pitch": "Independent technical review of an existing system before a hire, raise, or rebuild.",
         "format": "Fixed-scope sprint",
         "duration": "5–10 business days",
-        "price": "From €3,000 to €6,000",
+        "price": "From €3,000 to €6,000 · ≈ XOF 1,968,000 to 3,936,000",
         "deliverables": [
           "Architecture, performance, security, and operability assessment",
           "Risk register prioritized by blast radius and effort",
@@ -128,7 +128,7 @@
         "pitch": "Design, build and launch a new product surface end-to-end.",
         "format": "Fixed-scope project, milestone billing",
         "duration": "From 4 weeks",
-        "price": "From €12,000",
+        "price": "From €12,000 · ≈ XOF 7,872,000",
         "deliverables": [
           "Discovery, technical design, and milestone plan",
           "Implementation in Laravel / Next.js / TypeScript stack",
@@ -168,7 +168,7 @@
   },
   "work": {
     "pageTitle": "Work",
-    "pageSubtitle": "Twelve PTR-validated projects across EU, JP and West Africa. Filter by sector, region, or type.",
+    "pageSubtitle": "PTR-validated projects across EU, JP and West Africa, including a GovTech suite for Niger public administrations. Filter by sector, region, or type.",
     "filterSector": "Sector",
     "filterRegion": "Region",
     "filterType": "Type",
@@ -313,5 +313,63 @@
     "projectsLabel": "Projects shipped",
     "caseStudiesLabel": "Documented case studies",
     "sectorsLabel": "Sectors served"
+  },
+  "publicSector": {
+    "eyebrow": "Public sector · Niger",
+    "title": "GovTech platforms for Niger public administrations",
+    "subtitle": "Nine solutions designed for ministries, city halls, universities and public health structures in Niger.",
+    "problemLabel": "Problem",
+    "solutionLabel": "Solution",
+    "viewLive": "Visit site",
+    "ctaTitle": "An administration to digitalise?",
+    "ctaSubtitle": "Free audit of the current process, quote within 4 business days.",
+    "ctaButton": "Discuss your project",
+    "projects": {
+      "queue": {
+        "title": "Queue & appointment management platform",
+        "problem": "In Niger public services (tax authority, city halls, hospitals, courts, civil registry, enrolment centres), citizens wait for hours without knowing their turn. Agents do not know how many people remain in the queue, and managers have no data on wait times.",
+        "solution": "Web + mobile platform with display screens letting citizens book an appointment, receive a digital ticket, track the queue in real time and get SMS notifications."
+      },
+      "eservices": {
+        "title": "Online administrative requests",
+        "problem": "Many procedures remain paper-based: attestations, certificates, authorisations. Citizens travel multiple times and administrations manage everything in manuscript ledgers or paper folders.",
+        "solution": "Web and mobile portal: account creation, request submission, document attachments, online payment, status tracking and final document with QR-code verification. Delivered module by module (residence attestation, school certificate, business licence)."
+      },
+      "mailroom": {
+        "title": "Electronic mail & correspondence (GEC)",
+        "problem": "In almost every Niger administration, correspondence between ministries, directorates and services gets lost or stalls without traceability. An important file can sit untouched on a desk for three months.",
+        "solution": "GEC software with automatic numbering, PDF scan, agent assignment, SLA tracking, automatic reminders, electronic signature and archiving."
+      },
+      "hr": {
+        "title": "Public-sector HR platform",
+        "problem": "Tracking public agents is painful: attendance, postings, leave, missions, training. Many institutions still run on paper or scattered Excel files.",
+        "solution": "HR system with a digital file per agent, leave, attendance, postings and mission management. Non-sensitive modules first (payroll stays out of scope by default given existing SIGRHE/SIGASPE systems)."
+      },
+      "projectsTracking": {
+        "title": "Public-project tracking",
+        "problem": "Public projects (roads, schools, water points, health centres) are hard to follow: site progress, budget consumed, contractors, delays, field photos. Donors and authorities lack visibility.",
+        "solution": "Cartographic dashboard of public projects: budget, execution rate, field photos, reports, delay alerts. Configurable access for authorities / donors / general public."
+      },
+      "citizenFeedback": {
+        "title": "Citizen complaints & feedback",
+        "problem": "Citizens do not know where to report potholes, broken street lights, uncollected garbage, water leaks or absent agents. When they do report, nothing moves and they never hear back.",
+        "solution": "Web and mobile app: report a problem with photo and geolocation; the administration receives, assigns, resolves, closes and automatically informs the citizen."
+      },
+      "schools": {
+        "title": "Public-school management — Jandoo",
+        "problem": "Public schools struggle to track students, teachers, attendance, grades, infrastructure and equipment. Inspectorates do not know in real time which schools are short on teachers or desks.",
+        "solution": "School platform with enrolments, attendance, grades, teacher management and equipment inventory — accessible to the school, the inspectorate and the municipality."
+      },
+      "health": {
+        "title": "Health centres — Clinoo",
+        "problem": "Integrated health centres, district hospitals and regional hospitals struggle to track patients, consultations and medicines. Paper records, poor pharmacy stock tracking, frequent shortages, and painful monthly reporting.",
+        "solution": "Simple electronic patient record, consultation register, pharmacy stock management with alerts, and DHIS2-compatible monthly statistics."
+      },
+      "permits": {
+        "title": "Permits & authorisations",
+        "problem": "Building permits, business licences, public-space occupation, event authorisations and transport permits are handled manually. Citizens spend weeks between offices and city halls lose revenue (untracked cash payments).",
+        "solution": "Online submission platform, multi-service technical validation, online payment, and PDF delivery with QR-code verification."
+      }
+    }
   }
 }
